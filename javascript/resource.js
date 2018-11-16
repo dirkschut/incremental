@@ -15,4 +15,11 @@ class Resource{
     increase(){
         this.amount++;
     }
+
+    subtract(amount){
+        this.amount -= amount;
+        if(amount < 0){
+            amount = 0;
+        }
+    }
 };
