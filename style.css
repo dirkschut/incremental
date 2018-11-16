@@ -49,3 +49,20 @@ button:focus
 {
     list-style: none;
 }
+
+#resources li
+{
+    padding: 1px 0px;
+}
+
+.UserCanDo
+{
+    display: inline-block;
+    width: 1em;
+    background-color: #6495ed;
+}
+
+.userDoing
+{
+    background-color: #000080;
+}
