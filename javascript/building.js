@@ -12,6 +12,15 @@ class Building{
         return this.amount;
     }
 
+    getResourceAmount(name){
+        for(var i = 0; i < this.producesResource.length; i++){
+            if(this.producesResource[i] == name){
+                return this.producesAmount[i] * this.amount;
+            }
+        }
+        return 0;
+    }
+
     tryBuild(){
 
         for(var i = 0; i < this.costsResource.length; i++){

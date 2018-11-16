@@ -18,10 +18,10 @@
             
             <div id="resources">
                 You currently have:
-                <ul>
-                    <li><span id="WoodAmount">0</span>      Wood    <span id="WoodUserButton"   class="UserCanDo" onclick="setUserResource('wood')">&nbsp;</span></li>
-                    <li><span id="StoneAmount">0</span>     Stone   <span id="StoneUserButton"  class="UserCanDo" onclick="setUserResource('stone')">&nbsp;</span></li>
-                    <li><span id="FoodAmount">0</span>      Food    <span id="FoodUserButton"   class="UserCanDo" onclick="setUserResource('food')">&nbsp;</span></li>
+                <ul id="resourcesList">
+                    <li><span id="WoodAmount">0</span> <span id="WoodPerSecond">0</span>/s   Wood  <span id="WoodUserButton"  class="UserCanDo" onclick="setUserResource('Wood')">&nbsp;</span></li>
+                    <li><span id="StoneAmount">0</span> <span id="StonePerSecond">0</span>/s Stone <span id="StoneUserButton" class="UserCanDo" onclick="setUserResource('Stone')">&nbsp;</span></li>
+                    <li><span id="FoodAmount">0</span> <span id="FoodPerSecond">0</span>/s   Food  <span id="FoodUserButton"  class="UserCanDo" onclick="setUserResource('Food')">&nbsp;</span></li>
                 </ul>
             </div>
 
@@ -34,8 +34,8 @@
                 </div>
                 <div id="buildingList">
                     <ul id="buildingListList">
-                        <li><span onclick="tryBuildBuilding('woodcutter')">+</span><span id="WoodcutterAmount">0</span> Woodcutter</li>
-                        <li><span onclick="tryBuildBuilding('stonemason')">+</span><span id="StonemasonAmount">0</span> Stonemason</li>
+                        <li><span onclick="tryBuildBuilding('Woodcutter')">+</span><span id="WoodcutterAmount">0</span> Woodcutter</li>
+                        <li><span onclick="tryBuildBuilding('Stonemason')">+</span><span id="StonemasonAmount">0</span> Stonemason</li>
                         <li><span onclick="tryBuildBuilding('farm')">      +</span><span id="FarmAmount">0</span>       Farm</li>
                     </ul>
                 </div>

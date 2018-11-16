@@ -1,32 +1,36 @@
 var resources = [];
 var buildings = [];
-var userResource = "wood";
+var userResource = "Wood";
+
+var frameCounter = 0;
+var framesBetweenKeyFrames = 1000;
 
 $( window ).on("load", function(){
     console.log("Welcome");
 
-    resources["wood"] = new Resource("Wood");
-    resources["stone"] = new Resource("Stone");
-    resources["food"] = new Resource("Food");
-    setUserResource("wood");
+    resources["Wood"] = new Resource("Wood");
+    resources["Stone"] = new Resource("Stone");
+    resources["Food"] = new Resource("Food");
+    setUserResource("Wood");
 
     buildings = [];
-    buildings["woodcutter"] = new Building("Woodcutter");
-    buildings["woodcutter"].addResourceCost("wood", 10);
-    buildings["woodcutter"].addProduce("wood", 1);
+    buildings["Woodcutter"] = new Building("Woodcutter");
+    buildings["Woodcutter"].addResourceCost("Wood", 10);
+    buildings["Woodcutter"].addProduce("Wood", 1);
 
-    buildings["stonemason"] = new Building("Stonemason");
-    buildings["stonemason"].addResourceCost("wood", 100);
-    buildings["stonemason"].addResourceCost("stone", 100);
-    buildings["stonemason"].addProduce("stone", 1);
+    buildings["Stonemason"] = new Building("Stonemason");
+    buildings["Stonemason"].addResourceCost("Wood", 100);
+    buildings["Stonemason"].addResourceCost("Stone", 100);
+    buildings["Stonemason"].addProduce("Stone", 1);
 
     buildings["farm"] = new Building("Farm");
-    buildings["farm"].addResourceCost("wood", 100);
-    buildings["farm"].addResourceCost("food", 100);
-    buildings["farm"].addProduce("food", 1);
+    buildings["farm"].addResourceCost("Wood", 100);
+    buildings["farm"].addResourceCost("Food", 100);
+    buildings["farm"].addProduce("Food", 1);
 
     window.setInterval(tick, 1000);
     window.setInterval(frame, 10);
+    keyFrame();
 });
 
 function tick(){
@@ -38,48 +42,66 @@ function tick(){
 }
 
 function frame(){
-    $("#WoodAmount").text(resources["wood"].getAmount());
-    $("#StoneAmount").text(resources["stone"].getAmount());
-    $("#FoodAmount").text(resources["food"].getAmount());
-
-    $("#WoodcutterAmount").text(buildings["woodcutter"].getAmount());
-    $("#StonemasonAmount").text(buildings["stonemason"].getAmount());
+    $("#WoodcutterAmount").text(buildings["Woodcutter"].getAmount());
+    $("#StonemasonAmount").text(buildings["Stonemason"].getAmount());
     $("#FarmAmount").text(buildings["farm"].getAmount());
+
+    if(frameCounter >= framesBetweenKeyFrames){
+        keyFrame();
+        frameCounter = 0;
+        return;
+    }
+
+    Object.values(resources).forEach(resource => {
+        resource.updateView();
+    });
+
+    frameCounter++;
+}
+
+function keyFrame(){
+    var resourcesText = "";
+
+    Object.values(resources).forEach(element => {
+        resourcesText += element.getViewString();
+    });
+
+    $("#resourcesList").html(resourcesText);
 }
 
 function setUserResource(resource){
     clearManualResource();
     userResource = resource;
-    switch(resource){
-        case "wood":
-            $("#WoodUserButton").addClass("userDoing");
-            break;
-        case "stone":
-            $("#StoneUserButton").addClass("userDoing");
-            break;
-        case "food":
-            $("#FoodUserButton").addClass("userDoing");
-            break;
-        default:
-            userResource = "wood";
-            console.log("UNKNOWN USER RESOURCE: " + resource);
-            break;
+    
+    var foundIt = false;
+
+    Object.values(resources).forEach(tempResource => {
+        if(tempResource.getName() == resource){
+            $("#" + resource).children(".UserCanDo").addClass("userDoing");
+            foundIt = true;
+        }
+    });
+
+    if(!foundIt){
+        userResource = "Wood";
+        console.log("UNKNOWN USER RESOURCE: " + resource);
     }
+
 }
 
 function clearManualResource(){
-    $("#WoodUserButton").removeClass("userDoing");
-    $("#StoneUserButton").removeClass("userDoing");
-    $("#FoodUserButton").removeClass("userDoing");
+    Object.values(resources).forEach(resource => {
+        $("#" + resource.getName()).children(".UserCanDo").removeClass("userDoing");
+    });
 }
 
 function tryBuildBuilding(buildingName){
     switch(buildingName){
-        case "woodcutter":
-            buildings["woodcutter"].tryBuild();
+        case "Woodcutter":
+            buildings["Woodcutter"].tryBuild();
             break;
-        case "stonemason":
-            buildings["stonemason"].tryBuild();
+        case "Stonemason":
+            buildings["Stonemason"].tryBuild();
             break;
         case "farm":
             buildings["farm"].tryBuild();
