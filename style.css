@@ -27,4 +27,25 @@ button:focus
     margin: auto;
     box-sizing: border-box;
     border-radius: 10px;
+    overflow: visible;
+    position: relative;
+}
+
+#resources
+{
+    border: 2px solid;
+    width: 200px;
+    max-width: 200px;
+    text-align: right;
+    padding: 10px;
+    margin: 0 auto;
+    margin-right: 700px;
+    position: absolute;
+    right: 0;
+    top: 10px;
+}
+
+#resources ul
+{
+    list-style: none;
 }
