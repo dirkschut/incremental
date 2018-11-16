@@ -6,7 +6,7 @@ $( window ).on("load", function(){
     window.resources["wood"] = new Resource("Wood");
     window.resources["stone"] = new Resource("Stone");
     window.resources["food"] = new Resource("Food");
-    setUserResource("logs");
+    setUserResource("wood");
 
     window.setInterval(tick, 1000);
     window.setInterval(frame, 10);
