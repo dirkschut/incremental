@@ -56,3 +56,30 @@ class Resource{
         return total;
     }
 };
+
+function CreateResources(){
+    CreateResource("Wood");
+    CreateResource("Stone");
+    CreateResource("Food");
+    CreateResource("CopperOre");
+    CreateResource("TinOre");
+    CreateResource("IronOre");
+    CreateResource("Hides");
+
+
+    CreateResource("Planks");
+    CreateResource("CopperIngot");
+    CreateResource("TinIngot");
+    CreateResource("BronzeIngot");
+    CreateResource("IronIngot");
+    CreateResource("Leather");
+
+    CreateResource("CopperWeapons");
+    CreateResource("LeatherArmour");
+    CreateResource("CopperArmour");
+    CreateResource("IronArmour");
+}
+
+function CreateResource(name){
+    resources[name] = new Resource(name);
+}

@@ -53,6 +53,7 @@ a
 #resources ul
 {
     list-style: none;
+    padding: 0px;
 }
 
 #resources li

@@ -8,9 +8,7 @@ var framesBetweenKeyFrames = 1000;
 $( window ).on("load", function(){
     console.log("Welcome");
 
-    resources["Wood"] = new Resource("Wood");
-    resources["Stone"] = new Resource("Stone");
-    resources["Food"] = new Resource("Food");
+    CreateResources();
     setUserResource("Wood");
 
     buildings = [];
@@ -23,10 +21,10 @@ $( window ).on("load", function(){
     buildings["Stonemason"].addResourceCost("Stone", 100);
     buildings["Stonemason"].addProduce("Stone", 1);
 
-    buildings["farm"] = new Building("Farm");
-    buildings["farm"].addResourceCost("Wood", 100);
-    buildings["farm"].addResourceCost("Food", 100);
-    buildings["farm"].addProduce("Food", 1);
+    buildings["Farm"] = new Building("Farm");
+    buildings["Farm"].addResourceCost("Wood", 100);
+    buildings["Farm"].addResourceCost("Food", 100);
+    buildings["Farm"].addProduce("Food", 1);
 
     window.setInterval(tick, 1000);
     window.setInterval(frame, 10);
@@ -44,7 +42,7 @@ function tick(){
 function frame(){
     $("#WoodcutterAmount").text(buildings["Woodcutter"].getAmount());
     $("#StonemasonAmount").text(buildings["Stonemason"].getAmount());
-    $("#FarmAmount").text(buildings["farm"].getAmount());
+    $("#FarmAmount").text(buildings["Farm"].getAmount());
 
     if(frameCounter >= framesBetweenKeyFrames){
         keyFrame();
@@ -103,8 +101,8 @@ function tryBuildBuilding(buildingName){
         case "Stonemason":
             buildings["Stonemason"].tryBuild();
             break;
-        case "farm":
-            buildings["farm"].tryBuild();
+        case "Farm":
+            buildings["Farm"].tryBuild();
             break;
         default:
             console.log("Unknown buildingName: " + buildingName);
