@@ -1,12 +1,12 @@
-$( document ).ready(function(){
+$( window ).on("load", function(){
     console.log("Welcome");
 
     window.counter = 0;
     window.resources = [];
-    window.resources["logs"] = 0;
-    window.resources["planks"] = 0;
-    window.resources["stone"] = 0;
-    window.resources["food"] = 0;
+    window.resources["logs"] = new Resource("Logs");
+    window.resources["planks"] = new Resource("Planks");
+    window.resources["stone"] = new Resource("Stone");
+    window.resources["food"] = new Resource("Food");
     setUserResource("logs");
 
     window.setInterval(tick, 1000);
@@ -18,14 +18,14 @@ $( document ).ready(function(){
 });
 
 function tick(){
-    window.resources[window.userResource]++;
+    window.resources[window.userResource].increase();
 }
 
 function frame(){
-    $("#LogsAmount").text(window.resources["logs"]);
-    $("#PlanksAmount").text(window.resources["planks"]);
-    $("#StoneAmount").text(window.resources["stone"]);
-    $("#FoodAmount").text(window.resources["food"]);
+    $("#LogsAmount").text(window.resources["logs"].getAmount());
+    $("#PlanksAmount").text(window.resources["planks"].getAmount());
+    $("#StoneAmount").text(window.resources["stone"].getAmount());
+    $("#FoodAmount").text(window.resources["food"].getAmount());
 }
 
 function setUserResource(resource){
