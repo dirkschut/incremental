@@ -16,10 +16,12 @@ $( window ).on("load", function(){
     window.buildings["stonemason"] = new Building("Stonemason");
     window.buildings["stonemason"].addResourceCost("wood", 100);
     window.buildings["stonemason"].addResourceCost("stone", 100);
+    window.buildings["stonemason"].addProduce("stone", 1);
 
     window.buildings["farm"] = new Building("Farm");
     window.buildings["farm"].addResourceCost("wood", 100);
     window.buildings["farm"].addResourceCost("food", 100);
+    window.buildings["farm"].addProduce("food", 1);
 
     window.setInterval(tick, 1000);
     window.setInterval(frame, 10);
@@ -30,12 +32,11 @@ $( window ).on("load", function(){
 });
 
 function tick(){
-    console.log(window.resources.length);
-    for(var i = 0; i < window.buildings.length; i++){
-        window.buildings[i].produce();
+    for(var i = 0; i < Object.keys(window.buildings).length; i++){
+        Object.values(window.buildings)[i].produce();
     }
 
-    window.resources[window.userResource].increase();
+    window.resources[window.userResource].increase(1);
 }
 
 function frame(){

@@ -59,6 +59,7 @@ button:focus
 {
     display: inline-block;
     width: 1em;
+    border-radius: 4px;
     background-color: #6495ed;
 }
 

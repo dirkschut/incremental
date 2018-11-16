@@ -29,7 +29,6 @@ class Building{
     }
 
     produce(){
-        console.log(this.name);
         for(var i = 0; i < this.producesResource.length; i++){
             window.resources[this.producesResource[i]].increase(this.producesAmount[i] * this.amount);
         }

@@ -12,8 +12,8 @@ class Resource{
         return this.name;
     }
 
-    increase(){
-        this.amount++;
+    increase(amount){
+        this.amount += amount;
     }
 
     subtract(amount){
