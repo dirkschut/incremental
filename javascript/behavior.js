@@ -1,58 +1,55 @@
+var resources = [];
+var buildings = [];
+var userResource = "wood";
+
 $( window ).on("load", function(){
     console.log("Welcome");
 
-    window.counter = 0;
-    window.resources = [];
-    window.resources["wood"] = new Resource("Wood");
-    window.resources["stone"] = new Resource("Stone");
-    window.resources["food"] = new Resource("Food");
+    resources["wood"] = new Resource("Wood");
+    resources["stone"] = new Resource("Stone");
+    resources["food"] = new Resource("Food");
     setUserResource("wood");
 
-    window.buildings = [];
-    window.buildings["woodcutter"] = new Building("Woodcutter");
-    window.buildings["woodcutter"].addResourceCost("wood", 10);
-    window.buildings["woodcutter"].addProduce("wood", 1);
+    buildings = [];
+    buildings["woodcutter"] = new Building("Woodcutter");
+    buildings["woodcutter"].addResourceCost("wood", 10);
+    buildings["woodcutter"].addProduce("wood", 1);
 
-    window.buildings["stonemason"] = new Building("Stonemason");
-    window.buildings["stonemason"].addResourceCost("wood", 100);
-    window.buildings["stonemason"].addResourceCost("stone", 100);
-    window.buildings["stonemason"].addProduce("stone", 1);
+    buildings["stonemason"] = new Building("Stonemason");
+    buildings["stonemason"].addResourceCost("wood", 100);
+    buildings["stonemason"].addResourceCost("stone", 100);
+    buildings["stonemason"].addProduce("stone", 1);
 
-    window.buildings["farm"] = new Building("Farm");
-    window.buildings["farm"].addResourceCost("wood", 100);
-    window.buildings["farm"].addResourceCost("food", 100);
-    window.buildings["farm"].addProduce("food", 1);
+    buildings["farm"] = new Building("Farm");
+    buildings["farm"].addResourceCost("wood", 100);
+    buildings["farm"].addResourceCost("food", 100);
+    buildings["farm"].addProduce("food", 1);
 
     window.setInterval(tick, 1000);
     window.setInterval(frame, 10);
-
-    $("#GetMore").click(function(){
-        window.counter += 10;
-    });
 });
 
 function tick(){
-    for(var i = 0; i < Object.keys(window.buildings).length; i++){
-        Object.values(window.buildings)[i].produce();
+    for(var i = 0; i < Object.keys(buildings).length; i++){
+        Object.values(buildings)[i].produce();
     }
 
-    window.resources[window.userResource].increase(1);
+    resources[userResource].increase(1);
 }
 
 function frame(){
-    $("#WoodAmount").text(window.resources["wood"].getAmount());
-    $("#StoneAmount").text(window.resources["stone"].getAmount());
-    $("#FoodAmount").text(window.resources["food"].getAmount());
+    $("#WoodAmount").text(resources["wood"].getAmount());
+    $("#StoneAmount").text(resources["stone"].getAmount());
+    $("#FoodAmount").text(resources["food"].getAmount());
 
-    $("#WoodcutterAmount").text(window.buildings["woodcutter"].getAmount());
-    $("#StonemasonAmount").text(window.buildings["stonemason"].getAmount());
-    $("#FarmAmount").text(window.buildings["farm"].getAmount());
+    $("#WoodcutterAmount").text(buildings["woodcutter"].getAmount());
+    $("#StonemasonAmount").text(buildings["stonemason"].getAmount());
+    $("#FarmAmount").text(buildings["farm"].getAmount());
 }
 
 function setUserResource(resource){
-    console.log(resource);
     clearManualResource();
-    window.userResource = resource;
+    userResource = resource;
     switch(resource){
         case "wood":
             $("#WoodUserButton").addClass("userDoing");
@@ -64,7 +61,7 @@ function setUserResource(resource){
             $("#FoodUserButton").addClass("userDoing");
             break;
         default:
-            window.userResource = "logs";
+            userResource = "wood";
             console.log("UNKNOWN USER RESOURCE: " + resource);
             break;
     }
@@ -79,13 +76,13 @@ function clearManualResource(){
 function tryBuildBuilding(buildingName){
     switch(buildingName){
         case "woodcutter":
-            window.buildings["woodcutter"].tryBuild();
+            buildings["woodcutter"].tryBuild();
             break;
         case "stonemason":
-            window.buildings["stonemason"].tryBuild();
+            buildings["stonemason"].tryBuild();
             break;
         case "farm":
-            window.buildings["farm"].tryBuild();
+            buildings["farm"].tryBuild();
             break;
         default:
             console.log("Unknown buildingName: " + buildingName);

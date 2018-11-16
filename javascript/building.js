@@ -15,14 +15,14 @@ class Building{
     tryBuild(){
 
         for(var i = 0; i < this.costsResource.length; i++){
-            if(window.resources[this.costsResource[i]].getAmount() < this.costsAmount[i]){
+            if(resources[this.costsResource[i]].getAmount() < this.costsAmount[i]){
                 console.log("can't build due to insufficient " + this.costsResource[i]);
                 return false;
             }
         }
 
         for(var i = 0; i < this.costsResource.length; i++){
-            window.resources[this.costsResource[i]].subtract(this.costsAmount[i]); 
+            resources[this.costsResource[i]].subtract(this.costsAmount[i]); 
         }
 
         this.amount++;
@@ -30,7 +30,7 @@ class Building{
 
     produce(){
         for(var i = 0; i < this.producesResource.length; i++){
-            window.resources[this.producesResource[i]].increase(this.producesAmount[i] * this.amount);
+            resources[this.producesResource[i]].increase(this.producesAmount[i] * this.amount);
         }
     }
 
