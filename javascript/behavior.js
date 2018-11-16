@@ -3,8 +3,7 @@ $( window ).on("load", function(){
 
     window.counter = 0;
     window.resources = [];
-    window.resources["logs"] = new Resource("Logs");
-    window.resources["planks"] = new Resource("Planks");
+    window.resources["wood"] = new Resource("Wood");
     window.resources["stone"] = new Resource("Stone");
     window.resources["food"] = new Resource("Food");
     setUserResource("logs");
@@ -22,8 +21,7 @@ function tick(){
 }
 
 function frame(){
-    $("#LogsAmount").text(window.resources["logs"].getAmount());
-    $("#PlanksAmount").text(window.resources["planks"].getAmount());
+    $("#WoodAmount").text(window.resources["wood"].getAmount());
     $("#StoneAmount").text(window.resources["stone"].getAmount());
     $("#FoodAmount").text(window.resources["food"].getAmount());
 }
@@ -33,11 +31,8 @@ function setUserResource(resource){
     clearManualResource();
     window.userResource = resource;
     switch(resource){
-        case "logs":
-            $("#LogsUserButton").addClass("userDoing");
-            break;
-        case "planks":
-            $("#PlanksUserButton").addClass("userDoing");
+        case "wood":
+            $("#WoodUserButton").addClass("userDoing");
             break;
         case "stone":
             $("#StoneUserButton").addClass("userDoing");
@@ -53,8 +48,7 @@ function setUserResource(resource){
 }
 
 function clearManualResource(){
-    $("#LogsUserButton").removeClass("userDoing");
-    $("#PlanksUserButton").removeClass("userDoing");
+    $("#WoodUserButton").removeClass("userDoing");
     $("#StoneUserButton").removeClass("userDoing");
     $("#FoodUserButton").removeClass("userDoing");
 }
