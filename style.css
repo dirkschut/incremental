@@ -6,6 +6,19 @@ body
     color: #ccdbec;
 }
 
+button
+{
+    border-radius: 5px;
+    border-width: 0px;
+    padding: 10px;
+    background-color: #6495ed;
+}
+
+button:focus
+{
+    background-color: #000080;
+}
+
 #container
 {
     width: 700px;
