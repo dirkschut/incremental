@@ -11,20 +11,7 @@ $( window ).on("load", function(){
     CreateResources();
     setUserResource("Wood");
 
-    buildings = [];
-    buildings["Woodcutter"] = new Building("Woodcutter");
-    buildings["Woodcutter"].addResourceCost("Wood", 10);
-    buildings["Woodcutter"].addProduce("Wood", 1);
-
-    buildings["Stonemason"] = new Building("Stonemason");
-    buildings["Stonemason"].addResourceCost("Wood", 100);
-    buildings["Stonemason"].addResourceCost("Stone", 100);
-    buildings["Stonemason"].addProduce("Stone", 1);
-
-    buildings["Farm"] = new Building("Farm");
-    buildings["Farm"].addResourceCost("Wood", 100);
-    buildings["Farm"].addResourceCost("Food", 100);
-    buildings["Farm"].addProduce("Food", 1);
+    CreateBuildings();
 
     window.setInterval(tick, 1000);
     window.setInterval(frame, 10);
