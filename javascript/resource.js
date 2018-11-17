@@ -13,6 +13,10 @@ class Resource{
         return this.name;
     }
 
+    getCategory(){
+        return this.category;
+    }
+
     increase(amount){
         this.amount += amount;
     }
@@ -80,6 +84,6 @@ function CreateResources(){
     CreateResource("IronArmour", "tools");
 }
 
-function CreateResource(name){
-    resources[name] = new Resource(name);
+function CreateResource(name, category){
+    resources[name] = new Resource(name, category);
 }
