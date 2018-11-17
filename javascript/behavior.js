@@ -27,10 +27,6 @@ function tick(){
 }
 
 function frame(){
-    $("#WoodcutterAmount").text(buildings["Woodcutter"].getAmount());
-    $("#StonemasonAmount").text(buildings["Stonemason"].getAmount());
-    $("#FarmAmount").text(buildings["Farm"].getAmount());
-
     if(frameCounter >= framesBetweenKeyFrames){
         keyFrame();
         frameCounter = 0;
@@ -39,6 +35,10 @@ function frame(){
 
     Object.values(resources).forEach(resource => {
         resource.updateView();
+    });
+
+    Object.values(buildings).forEach(building => {
+        building.updateView();
     });
 
     frameCounter++;
@@ -50,8 +50,13 @@ function keyFrame(){
     Object.values(resources).forEach(element => {
         resourcesText += element.getViewString();
     });
-
     $("#resourcesList").html(resourcesText);
+
+    var buildingsText = "";
+    Object.values(buildings).forEach(element => {
+        buildingsText += element.getViewString();
+    });
+    $("#buildingListList").html(buildingsText);
 }
 
 function setUserResource(resource){
