@@ -4,6 +4,8 @@ body
     align-items: center;
     background-color: #132030;
     color: #ccdbec;
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
 }
 
 button
@@ -48,6 +50,7 @@ a
     position: absolute;
     right: 0;
     top: 10px;
+    font-size: 12px;
 }
 
 #resources ul
@@ -85,6 +88,7 @@ a
     position: absolute;
     margin-left: 700px;
     top: 10px;
+    font-size: 12px;
 }
 
 #buildingQueue
