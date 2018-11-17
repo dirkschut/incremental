@@ -1,6 +1,7 @@
 class Resource{
-    constructor(tempName){
+    constructor(tempName, category){
         this.name = tempName;
+        this.category = category;
         this.amount = 0;
     }
 
@@ -58,26 +59,25 @@ class Resource{
 };
 
 function CreateResources(){
-    CreateResource("Wood");
-    CreateResource("Stone");
-    CreateResource("Food");
-    CreateResource("CopperOre");
-    CreateResource("TinOre");
-    CreateResource("IronOre");
-    CreateResource("Hides");
+    CreateResource("Wood", "raw");
+    CreateResource("Stone", "raw");
+    CreateResource("Food", "raw");
+    CreateResource("CopperOre", "raw");
+    CreateResource("TinOre", "raw");
+    CreateResource("IronOre", "raw");
+    CreateResource("Hides", "raw");
 
+    CreateResource("Planks", "intermediate");
+    CreateResource("CopperIngot", "intermediate");
+    CreateResource("TinIngot", "intermediate");
+    CreateResource("BronzeIngot", "intermediate");
+    CreateResource("IronIngot", "intermediate");
+    CreateResource("Leather", "intermediate");
 
-    CreateResource("Planks");
-    CreateResource("CopperIngot");
-    CreateResource("TinIngot");
-    CreateResource("BronzeIngot");
-    CreateResource("IronIngot");
-    CreateResource("Leather");
-
-    CreateResource("CopperWeapons");
-    CreateResource("LeatherArmour");
-    CreateResource("CopperArmour");
-    CreateResource("IronArmour");
+    CreateResource("CopperWeapons", "tools");
+    CreateResource("LeatherArmour", "tools");
+    CreateResource("CopperArmour", "tools");
+    CreateResource("IronArmour", "tools");
 }
 
 function CreateResource(name){
