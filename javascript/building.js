@@ -6,6 +6,7 @@ class Building{
         this.costsAmount = [];
         this.producesResource = [];
         this.producesAmount = [];
+        this.costExponent = 1.1;
     }
 
     getViewString(){
@@ -14,8 +15,10 @@ class Building{
         returnString += this.name;
         returnString += "<div class='tooltip'>"
 
-        for(var i = 0; i < this.costsAmount.length; i++){
-            returnString += this.costsAmount[i] + " " + this.costsResource[i] + "<br/>";
+        var exponentCosts = this.getExponentCosts();
+        for(var i = 0; i < exponentCosts.length; i++){
+            var cost = exponentCosts[i]
+            returnString += "<span class='" + this.costsResource[i] + "'>" + cost + "</span> " + this.costsResource[i] + "<br/>";
         }
 
         returnString += "</div>";
@@ -25,6 +28,10 @@ class Building{
 
     updateView(){
         $("#" + this.name).children(".amount").text(this.amount);
+        var costExponents = this.getExponentCosts();
+        for(var i = 0; i < this.costsAmount.length; i++){
+            $("#" + this.name).children(".tooltip").children("." + this.costsResource[i]).text(costExponents[i]);
+        }
     }
 
     getAmount(){
@@ -40,17 +47,30 @@ class Building{
         return 0;
     }
 
+    getExponentCosts(){
+        var exponentArray = [];
+        for(var i = 0; i < this.costsAmount.length; i++){
+            exponentArray.push(Math.ceil(this.costsAmount[i] * Math.pow(this.costExponent, this.amount)));
+        }
+        return exponentArray;
+    }
+
+    setCostExponent(costExponent){
+        this.costExponent = costExponent;
+    }
+
     tryBuild(){
+        var exponentCosts = this.getExponentCosts();
 
         for(var i = 0; i < this.costsResource.length; i++){
-            if(resources[this.costsResource[i]].getAmount() < this.costsAmount[i]){
+            if(resources[this.costsResource[i]].getAmount() < exponentCosts[i]){
                 console.log("can't build due to insufficient " + this.costsResource[i]);
                 return false;
             }
         }
 
         for(var i = 0; i < this.costsResource.length; i++){
-            resources[this.costsResource[i]].subtract(this.costsAmount[i]); 
+            resources[this.costsResource[i]].subtract(exponentCosts[i]); 
         }
 
         this.amount++;
