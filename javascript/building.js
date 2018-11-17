@@ -64,22 +64,30 @@ function CreateBuilding(name){
     buildings[name] = new Building(name);
 }
 
+function BuildingAddResourceCost(name, resource, amount){
+    buildings[name].addResourceCost(resource, amount);
+}
+
+function BuildingAddProduce(name, resource, amount){
+    buildings[name].addProduce(resource, amount);
+}
+
 function CreateBuildingWoodcutter(){
     CreateBuilding("Woodcutter");
-    buildings["Woodcutter"].addResourceCost("Wood", 10);
-    buildings["Woodcutter"].addProduce("Wood", 1);
+    BuildingAddResourceCost("Woodcutter", "Wood", 10);
+    BuildingAddProduce("Woodcutter", "Wood", 1);
 }
 
 function CreateBuildingStonemason(){
     CreateBuilding("Stonemason");
-    buildings["Stonemason"].addResourceCost("Wood", 100);
-    buildings["Stonemason"].addResourceCost("Stone", 100);
-    buildings["Stonemason"].addProduce("Stone", 1);
+    BuildingAddResourceCost("Stonemason", "Wood", 100);
+    BuildingAddResourceCost("Stonemason", "Stone", 100);
+    BuildingAddProduce("Stonemason", "Stone", 1);
 }
 
 function CreateBuildingFarm(){
     CreateBuilding("Farm");
-    buildings["Farm"].addResourceCost("Wood", 100);
-    buildings["Farm"].addResourceCost("Food", 100);
-    buildings["Farm"].addProduce("Food", 1);
+    BuildingAddResourceCost("Farm", "Wood", 100);
+    BuildingAddResourceCost("Farm", "Food", 100);
+    BuildingAddProduce("Farm", "Food", 1);
 }
