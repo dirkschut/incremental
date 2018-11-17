@@ -9,9 +9,16 @@ class Building{
     }
 
     getViewString(){
-        var returnString = "<li id='" + this.name + "'><span class='buyBuilding' onclick = \"tryBuildBuilding('" + this.name + "')\"'>+</span>";
+        var returnString = "<li id='" + this.name + "' class='building'><span class='buyBuilding' onclick = \"tryBuildBuilding('" + this.name + "')\"'>+</span>";
         returnString += " <span class='amount'>" + this.amount + "</span> ";
         returnString += this.name;
+        returnString += "<div class='tooltip'>"
+
+        for(var i = 0; i < this.costsAmount.length; i++){
+            returnString += this.costsAmount[i] + " " + this.costsResource[i] + "<br/>";
+        }
+
+        returnString += "</div>";
         returnString += "</li>";
         return returnString;
     }
