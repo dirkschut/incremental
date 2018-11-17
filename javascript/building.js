@@ -83,6 +83,7 @@ function CreateBuildings(){
     CreateBuildingStonemason();
     CreateBuildingFarm();
     CreateBuildingCopperMine();
+    CreateBuildingTinMine();
 }
 
 function CreateBuildingWoodcutter(){
@@ -110,4 +111,11 @@ function CreateBuildingCopperMine(){
     BuildingAddResourceCost("CopperMine", "Wood", 250);
     BuildingAddResourceCost("CopperMine", "Stone", 250);
     BuildingAddProduce("CopperMine", "CopperOre", 1);
+}
+
+function CreateBuildingTinMine(){
+    CreateBuilding("TinMine");
+    BuildingAddResourceCost("TinMine", "Wood", 500);
+    BuildingAddResourceCost("TinMine", "Stone", 500);
+    BuildingAddProduce("TinMine", "TinOre", 1);
 }
