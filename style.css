@@ -64,12 +64,20 @@ a
     padding: 1px 0px;
 }
 
-.UserCanDo
+.userCanDo
 {
     display: inline-block;
     width: 1em;
     border-radius: 4px;
     background-color: #6495ed;
+}
+
+.userCantDo
+{
+    display: inline-block;
+    width: 1em;
+    border-radius: 4px;
+    background-color: gray;
 }
 
 .userDoing

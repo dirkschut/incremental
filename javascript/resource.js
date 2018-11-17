@@ -36,13 +36,22 @@ class Resource{
     getViewString(){
         var userIsDoingClass = "";
         if(userResource == this.name){
-            userIsDoingClass = "userDoing";
+            userIsDoingClass += "userDoing";
+        }
+
+        var onClickWritten = "";
+
+        if(this.category == "raw"){
+            userIsDoingClass += " userCanDo";
+            onClickWritten = "onclick=\"setUserResource('" + this.name + "')\"";
+        }else{
+            userIsDoingClass += " userCantDo";
         }
 
         var viewString = "<li id='" + this.name + "'>";
         viewString += "<span class='amount'>" + this.amount + "</span>"
         viewString += " (<span class='perSecond'>" + this.getPerSecond() + "</span>/s) " + this.name;
-        viewString += " <span class='UserCanDo " + userIsDoingClass + "' onclick=\"setUserResource('" + this.name + "')\">&nbsp;</span>";
+        viewString += " <span class='" + userIsDoingClass + "' " + onClickWritten + ">&nbsp;</span>";
         viewString += "</li>";
         return viewString;
     }
