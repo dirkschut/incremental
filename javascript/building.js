@@ -8,8 +8,29 @@ class Building{
         this.producesAmount = [];
     }
 
+    getViewString(){
+        var returnString = "<li id='" + this.name + "'><span class='buyBuilding' onclick = \"tryBuildBuilding('" + this.name + "')\"'>+</span>";
+        returnString += " <span class='amount'>" + this.amount + "</span> ";
+        returnString += this.name;
+        returnString += "</li>";
+        return returnString;
+    }
+
+    updateView(){
+        $("#" + this.name).children(".amount").text(this.amount);
+    }
+
     getAmount(){
         return this.amount;
+    }
+
+    getResourceAmount(name){
+        for(var i = 0; i < this.producesResource.length; i++){
+            if(this.producesResource[i] == name){
+                return this.producesAmount[i] * this.amount;
+            }
+        }
+        return 0;
     }
 
     tryBuild(){
@@ -43,4 +64,50 @@ class Building{
         this.producesResource.push(resource);
         this.producesAmount.push(amount);
     }
+}
+
+function CreateBuilding(name){
+    buildings[name] = new Building(name);
+}
+
+function BuildingAddResourceCost(name, resource, amount){
+    buildings[name].addResourceCost(resource, amount);
+}
+
+function BuildingAddProduce(name, resource, amount){
+    buildings[name].addProduce(resource, amount);
+}
+
+function CreateBuildings(){
+    CreateBuildingWoodcutter();
+    CreateBuildingStonemason();
+    CreateBuildingFarm();
+    CreateBuildingCopperMine();
+}
+
+function CreateBuildingWoodcutter(){
+    CreateBuilding("Woodcutter");
+    BuildingAddResourceCost("Woodcutter", "Wood", 10);
+    BuildingAddProduce("Woodcutter", "Wood", 1);
+}
+
+function CreateBuildingStonemason(){
+    CreateBuilding("Stonemason");
+    BuildingAddResourceCost("Stonemason", "Wood", 100);
+    BuildingAddResourceCost("Stonemason", "Stone", 100);
+    BuildingAddProduce("Stonemason", "Stone", 1);
+}
+
+function CreateBuildingFarm(){
+    CreateBuilding("Farm");
+    BuildingAddResourceCost("Farm", "Wood", 100);
+    BuildingAddResourceCost("Farm", "Food", 100);
+    BuildingAddProduce("Farm", "Food", 1);
+}
+
+function CreateBuildingCopperMine(){
+    CreateBuilding("CopperMine");
+    BuildingAddResourceCost("CopperMine", "Wood", 250);
+    BuildingAddResourceCost("CopperMine", "Stone", 250);
+    BuildingAddProduce("CopperMine", "CopperOre", 1);
 }

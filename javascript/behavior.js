@@ -1,32 +1,21 @@
 var resources = [];
 var buildings = [];
-var userResource = "wood";
+var userResource = "Wood";
+
+var frameCounter = 0;
+var framesBetweenKeyFrames = 1000;
 
 $( window ).on("load", function(){
     console.log("Welcome");
 
-    resources["wood"] = new Resource("Wood");
-    resources["stone"] = new Resource("Stone");
-    resources["food"] = new Resource("Food");
-    setUserResource("wood");
+    CreateResources();
+    setUserResource("Wood");
 
-    buildings = [];
-    buildings["woodcutter"] = new Building("Woodcutter");
-    buildings["woodcutter"].addResourceCost("wood", 10);
-    buildings["woodcutter"].addProduce("wood", 1);
-
-    buildings["stonemason"] = new Building("Stonemason");
-    buildings["stonemason"].addResourceCost("wood", 100);
-    buildings["stonemason"].addResourceCost("stone", 100);
-    buildings["stonemason"].addProduce("stone", 1);
-
-    buildings["farm"] = new Building("Farm");
-    buildings["farm"].addResourceCost("wood", 100);
-    buildings["farm"].addResourceCost("food", 100);
-    buildings["farm"].addProduce("food", 1);
+    CreateBuildings();
 
     window.setInterval(tick, 1000);
     window.setInterval(frame, 10);
+    keyFrame();
 });
 
 function tick(){
@@ -38,51 +27,74 @@ function tick(){
 }
 
 function frame(){
-    $("#WoodAmount").text(resources["wood"].getAmount());
-    $("#StoneAmount").text(resources["stone"].getAmount());
-    $("#FoodAmount").text(resources["food"].getAmount());
+    if(frameCounter >= framesBetweenKeyFrames){
+        keyFrame();
+        frameCounter = 0;
+        return;
+    }
 
-    $("#WoodcutterAmount").text(buildings["woodcutter"].getAmount());
-    $("#StonemasonAmount").text(buildings["stonemason"].getAmount());
-    $("#FarmAmount").text(buildings["farm"].getAmount());
+    Object.values(resources).forEach(resource => {
+        resource.updateView();
+    });
+
+    Object.values(buildings).forEach(building => {
+        building.updateView();
+    });
+
+    frameCounter++;
+}
+
+function keyFrame(){
+    var resourcesText = "";
+
+    Object.values(resources).forEach(element => {
+        resourcesText += element.getViewString();
+    });
+    $("#resourcesList").html(resourcesText);
+
+    var buildingsText = "";
+    Object.values(buildings).forEach(element => {
+        buildingsText += element.getViewString();
+    });
+    $("#buildingListList").html(buildingsText);
 }
 
 function setUserResource(resource){
     clearManualResource();
     userResource = resource;
-    switch(resource){
-        case "wood":
-            $("#WoodUserButton").addClass("userDoing");
-            break;
-        case "stone":
-            $("#StoneUserButton").addClass("userDoing");
-            break;
-        case "food":
-            $("#FoodUserButton").addClass("userDoing");
-            break;
-        default:
-            userResource = "wood";
-            console.log("UNKNOWN USER RESOURCE: " + resource);
-            break;
+    
+    var foundIt = false;
+
+    Object.values(resources).forEach(tempResource => {
+        if(tempResource.getName() == resource){
+            $("#" + resource).children(".UserCanDo").addClass("userDoing");
+            foundIt = true;
+        }
+    });
+
+    if(!foundIt){
+        userResource = "Wood";
+        console.log("UNKNOWN USER RESOURCE: " + resource);
     }
+
 }
 
 function clearManualResource(){
-    $("#WoodUserButton").removeClass("userDoing");
-    $("#StoneUserButton").removeClass("userDoing");
-    $("#FoodUserButton").removeClass("userDoing");
+    Object.values(resources).forEach(resource => {
+        $("#" + resource.getName()).children(".UserCanDo").removeClass("userDoing");
+    });
 }
 
 function tryBuildBuilding(buildingName){
     switch(buildingName){
-        case "woodcutter":
-            buildings["woodcutter"].tryBuild();
+        case "Woodcutter":
+            buildings["Woodcutter"].tryBuild();
             break;
-        case "stonemason":
-            buildings["stonemason"].tryBuild();
+        case "Stonemason":
+            buildings["Stonemason"].tryBuild();
             break;
-        case "farm":
-            buildings["farm"].tryBuild();
+        case "Farm":
+            buildings["Farm"].tryBuild();
             break;
         default:
             console.log("Unknown buildingName: " + buildingName);

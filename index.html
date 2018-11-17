@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Incremental</title>
+        <title>Incremental v 0.0.2</title>
         <link rel="stylesheet" type="text/css" href="style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         
@@ -14,15 +14,13 @@
             <h1>Incremental</h1>
             <p>This will be the home of my incremental game.</p>
             <p>However, as this is my learning JavaScript project, it is and probably will always be very limited.</p>
-            <p><a href="changelog/_changelog.md">Changelog</a></p>
-            
+            <p><a href="changelog/Changelog.html">Changelog</a> <a href="changelog/Roadmap.html">Roadmap</a></p>
+            <p><a href="https://discord.gg/3yN6vPH">Talk about it on Discord.</a></p>
+            <p>Version 0.0.2</p>
+
             <div id="resources">
                 You currently have:
-                <ul>
-                    <li><span id="WoodAmount">0</span>      Wood    <span id="WoodUserButton"   class="UserCanDo" onclick="setUserResource('wood')">&nbsp;</span></li>
-                    <li><span id="StoneAmount">0</span>     Stone   <span id="StoneUserButton"  class="UserCanDo" onclick="setUserResource('stone')">&nbsp;</span></li>
-                    <li><span id="FoodAmount">0</span>      Food    <span id="FoodUserButton"   class="UserCanDo" onclick="setUserResource('food')">&nbsp;</span></li>
-                </ul>
+                <ul id="resourcesList"></ul>
             </div>
 
             <div id="buildings">
@@ -33,11 +31,7 @@
                     </ol>
                 </div>
                 <div id="buildingList">
-                    <ul id="buildingListList">
-                        <li><span onclick="tryBuildBuilding('woodcutter')">+</span><span id="WoodcutterAmount">0</span> Woodcutter</li>
-                        <li><span onclick="tryBuildBuilding('stonemason')">+</span><span id="StonemasonAmount">0</span> Stonemason</li>
-                        <li><span onclick="tryBuildBuilding('farm')">      +</span><span id="FarmAmount">0</span>       Farm</li>
-                    </ul>
+                    <ul id="buildingListList"></ul>
                 </div>
             </div>
         </div>
