@@ -6,18 +6,32 @@ class Building{
         this.costsAmount = [];
         this.producesResource = [];
         this.producesAmount = [];
+        this.costExponent = 1.1;
     }
 
     getViewString(){
-        var returnString = "<li id='" + this.name + "'><span class='buyBuilding' onclick = \"tryBuildBuilding('" + this.name + "')\"'>+</span>";
+        var returnString = "<li id='" + this.name + "' class='building'><span class='buyBuilding' onclick = \"tryBuildBuilding('" + this.name + "')\"'>+</span>";
         returnString += " <span class='amount'>" + this.amount + "</span> ";
         returnString += this.name;
+        returnString += "<div class='tooltip'>"
+
+        var exponentCosts = this.getExponentCosts();
+        for(var i = 0; i < exponentCosts.length; i++){
+            var cost = exponentCosts[i]
+            returnString += "<span class='" + this.costsResource[i] + "'>" + cost + "</span> " + this.costsResource[i] + "<br/>";
+        }
+
+        returnString += "</div>";
         returnString += "</li>";
         return returnString;
     }
 
     updateView(){
         $("#" + this.name).children(".amount").text(this.amount);
+        var costExponents = this.getExponentCosts();
+        for(var i = 0; i < this.costsAmount.length; i++){
+            $("#" + this.name).children(".tooltip").children("." + this.costsResource[i]).text(costExponents[i]);
+        }
     }
 
     getAmount(){
@@ -33,17 +47,30 @@ class Building{
         return 0;
     }
 
+    getExponentCosts(){
+        var exponentArray = [];
+        for(var i = 0; i < this.costsAmount.length; i++){
+            exponentArray.push(Math.ceil(this.costsAmount[i] * Math.pow(this.costExponent, this.amount)));
+        }
+        return exponentArray;
+    }
+
+    setCostExponent(costExponent){
+        this.costExponent = costExponent;
+    }
+
     tryBuild(){
+        var exponentCosts = this.getExponentCosts();
 
         for(var i = 0; i < this.costsResource.length; i++){
-            if(resources[this.costsResource[i]].getAmount() < this.costsAmount[i]){
+            if(resources[this.costsResource[i]].getAmount() < exponentCosts[i]){
                 console.log("can't build due to insufficient " + this.costsResource[i]);
                 return false;
             }
         }
 
         for(var i = 0; i < this.costsResource.length; i++){
-            resources[this.costsResource[i]].subtract(this.costsAmount[i]); 
+            resources[this.costsResource[i]].subtract(exponentCosts[i]); 
         }
 
         this.amount++;
@@ -70,6 +97,18 @@ function CreateBuilding(name){
     buildings[name] = new Building(name);
 }
 
+function CreateBuildingWithCostsAndProduction(name, costResources, costAmounts, producesResources, producesAmounts){
+    CreateBuilding(name);
+
+    for(var i = 0; i < costResources.length; i++){
+        BuildingAddResourceCost(name, costResources[i], costAmounts[i]);
+    }
+
+    for(var i = 0; i < producesResources.length; i++){
+        BuildingAddProduce(name, producesResources[i], producesAmounts[i]);
+    }
+}
+
 function BuildingAddResourceCost(name, resource, amount){
     buildings[name].addResourceCost(resource, amount);
 }
@@ -83,31 +122,55 @@ function CreateBuildings(){
     CreateBuildingStonemason();
     CreateBuildingFarm();
     CreateBuildingCopperMine();
+    CreateBuildingTinMine();
 }
 
 function CreateBuildingWoodcutter(){
-    CreateBuilding("Woodcutter");
-    BuildingAddResourceCost("Woodcutter", "Wood", 10);
-    BuildingAddProduce("Woodcutter", "Wood", 1);
+    CreateBuildingWithCostsAndProduction(
+        "Woodcutter",
+        ["Wood"],
+        [10],
+        ["Wood"],
+        [1]
+    );
 }
 
 function CreateBuildingStonemason(){
-    CreateBuilding("Stonemason");
-    BuildingAddResourceCost("Stonemason", "Wood", 100);
-    BuildingAddResourceCost("Stonemason", "Stone", 100);
-    BuildingAddProduce("Stonemason", "Stone", 1);
+    CreateBuildingWithCostsAndProduction(
+        "Stonemason",
+        ["Wood", "Stone"],
+        [100,    100],
+        ["Stone"],
+        [1]
+    );
 }
 
 function CreateBuildingFarm(){
-    CreateBuilding("Farm");
-    BuildingAddResourceCost("Farm", "Wood", 100);
-    BuildingAddResourceCost("Farm", "Food", 100);
-    BuildingAddProduce("Farm", "Food", 1);
+    CreateBuildingWithCostsAndProduction(
+        "Farm",
+        ["Wood", "Food"],
+        [100,    100],
+        ["Food"],
+        [1]
+    );
 }
 
 function CreateBuildingCopperMine(){
-    CreateBuilding("CopperMine");
-    BuildingAddResourceCost("CopperMine", "Wood", 250);
-    BuildingAddResourceCost("CopperMine", "Stone", 250);
-    BuildingAddProduce("CopperMine", "CopperOre", 1);
+    CreateBuildingWithCostsAndProduction(
+        "CopperMine",
+        ["Wood", "Stone"],
+        [250,    250],
+        ["CopperOre"],
+        [1]
+    );
+}
+
+function CreateBuildingTinMine(){
+    CreateBuildingWithCostsAndProduction(
+        "TinMine",
+        ["Wood", "Stone"],
+        [250,    250],
+        ["TinOre"],
+        [1]
+    );
 }

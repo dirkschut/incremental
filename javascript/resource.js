@@ -1,7 +1,20 @@
 class Resource{
-    constructor(tempName){
+    constructor(tempName, category){
         this.name = tempName;
+        this.displayName = "";
+        this.category = category;
         this.amount = 0;
+    }
+
+    setDisplayName(displayName){
+        this.displayName = displayName;
+    }
+
+    getDisplayName(){
+        if(this.displayName == ""){
+            return this.name;
+        }
+        return this.displayName;
     }
 
     getAmount(){
@@ -10,6 +23,10 @@ class Resource{
 
     getName(){
         return this.name;
+    }
+
+    getCategory(){
+        return this.category;
     }
 
     increase(amount){
@@ -31,13 +48,22 @@ class Resource{
     getViewString(){
         var userIsDoingClass = "";
         if(userResource == this.name){
-            userIsDoingClass = "userDoing";
+            userIsDoingClass += "userDoing";
+        }
+
+        var onClickWritten = "";
+
+        if(this.category == "raw"){
+            userIsDoingClass += " userCanDo";
+            onClickWritten = "onclick=\"setUserResource('" + this.name + "')\"";
+        }else{
+            userIsDoingClass += " userCantDo";
         }
 
         var viewString = "<li id='" + this.name + "'>";
         viewString += "<span class='amount'>" + this.amount + "</span>"
-        viewString += " (<span class='perSecond'>" + this.getPerSecond() + "</span>/s) " + this.name;
-        viewString += " <span class='UserCanDo " + userIsDoingClass + "' onclick=\"setUserResource('" + this.name + "')\">&nbsp;</span>";
+        viewString += " (<span class='perSecond'>" + this.getPerSecond() + "</span>/s) " + this.getDisplayName();
+        viewString += " <span class='" + userIsDoingClass + "' " + onClickWritten + ">&nbsp;</span>";
         viewString += "</li>";
         return viewString;
     }
@@ -58,28 +84,28 @@ class Resource{
 };
 
 function CreateResources(){
-    CreateResource("Wood");
-    CreateResource("Stone");
-    CreateResource("Food");
-    CreateResource("CopperOre");
-    CreateResource("TinOre");
-    CreateResource("IronOre");
-    CreateResource("Hides");
+    CreateResource("Wood", "raw");
+    CreateResource("Stone", "raw");
+    CreateResource("Food", "raw");
+    CreateResource("CopperOre", "raw").setDisplayName("Copper Ore");
+    CreateResource("TinOre", "raw").setDisplayName("Tin Ore");
+    CreateResource("IronOre", "raw").setDisplayName("Iron Ore");
+    CreateResource("Hides", "raw");
 
+    CreateResource("Planks", "intermediate");
+    CreateResource("CopperIngot", "intermediate").setDisplayName("Copper Ingot");
+    CreateResource("TinIngot", "intermediate").setDisplayName("Tin Ingot");
+    CreateResource("BronzeIngot", "intermediate").setDisplayName("Bronze Ingot");
+    CreateResource("IronIngot", "intermediate").setDisplayName("Iron Ingot");
+    CreateResource("Leather", "intermediate");
 
-    CreateResource("Planks");
-    CreateResource("CopperIngot");
-    CreateResource("TinIngot");
-    CreateResource("BronzeIngot");
-    CreateResource("IronIngot");
-    CreateResource("Leather");
-
-    CreateResource("CopperWeapons");
-    CreateResource("LeatherArmour");
-    CreateResource("CopperArmour");
-    CreateResource("IronArmour");
+    CreateResource("CopperWeapons", "tools").setDisplayName("Copper Weapons");
+    CreateResource("LeatherArmour", "tools").setDisplayName("Leather Armour");
+    CreateResource("CopperArmour", "tools").setDisplayName("Copper Armour");
+    CreateResource("IronArmour", "tools").setDisplayName("Iron Armour");
 }
 
-function CreateResource(name){
-    resources[name] = new Resource(name);
+function CreateResource(name, category){
+    resources[name] = new Resource(name, category);
+    return resources[name];
 }

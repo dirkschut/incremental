@@ -4,6 +4,8 @@ body
     align-items: center;
     background-color: #132030;
     color: #ccdbec;
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
 }
 
 button
@@ -48,6 +50,7 @@ a
     position: absolute;
     right: 0;
     top: 10px;
+    font-size: 12px;
 }
 
 #resources ul
@@ -61,12 +64,20 @@ a
     padding: 1px 0px;
 }
 
-.UserCanDo
+.userCanDo
 {
     display: inline-block;
     width: 1em;
     border-radius: 4px;
     background-color: #6495ed;
+}
+
+.userCantDo
+{
+    display: inline-block;
+    width: 1em;
+    border-radius: 4px;
+    background-color: gray;
 }
 
 .userDoing
@@ -85,6 +96,7 @@ a
     position: absolute;
     margin-left: 700px;
     top: 10px;
+    font-size: 12px;
 }
 
 #buildingQueue
@@ -111,4 +123,17 @@ a
     max-width: 1em;
     text-align: center;
     display: inline-block;
+}
+
+.building .tooltip
+{
+    visibility: hidden;
+    z-index: 1;
+    position: absolute;
+}
+
+.building:hover .tooltip
+{
+    visibility: visible;
+    position: relative;
 }

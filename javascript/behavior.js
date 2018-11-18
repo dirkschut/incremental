@@ -45,12 +45,24 @@ function frame(){
 }
 
 function keyFrame(){
-    var resourcesText = "";
+    var baseString = "<li><h3>Basic</h3></li>";
+    var intermediateString = "<li><h3>Intermediate</h3></li>";
+    var toolsString = "<li><h3>Tools</h3></li>";
 
     Object.values(resources).forEach(element => {
-        resourcesText += element.getViewString();
+        switch(element.getCategory()){
+            case "intermediate":
+                intermediateString += element.getViewString();
+                break;
+            case "tools":
+                toolsString += element.getViewString();
+                break;
+            default:
+                baseString += element.getViewString();
+                break;
+        }
     });
-    $("#resourcesList").html(resourcesText);
+    $("#resourcesList").html(baseString + intermediateString + toolsString);
 
     var buildingsText = "";
     Object.values(buildings).forEach(element => {
