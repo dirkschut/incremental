@@ -1,8 +1,20 @@
 class Resource{
     constructor(tempName, category){
         this.name = tempName;
+        this.displayName = "";
         this.category = category;
         this.amount = 0;
+    }
+
+    setDisplayName(displayName){
+        this.displayName = displayName;
+    }
+
+    getDisplayName(){
+        if(this.displayName == ""){
+            return this.name;
+        }
+        return this.displayName;
     }
 
     getAmount(){
@@ -50,7 +62,7 @@ class Resource{
 
         var viewString = "<li id='" + this.name + "'>";
         viewString += "<span class='amount'>" + this.amount + "</span>"
-        viewString += " (<span class='perSecond'>" + this.getPerSecond() + "</span>/s) " + this.name;
+        viewString += " (<span class='perSecond'>" + this.getPerSecond() + "</span>/s) " + this.getDisplayName();
         viewString += " <span class='" + userIsDoingClass + "' " + onClickWritten + ">&nbsp;</span>";
         viewString += "</li>";
         return viewString;
@@ -75,24 +87,25 @@ function CreateResources(){
     CreateResource("Wood", "raw");
     CreateResource("Stone", "raw");
     CreateResource("Food", "raw");
-    CreateResource("CopperOre", "raw");
-    CreateResource("TinOre", "raw");
-    CreateResource("IronOre", "raw");
+    CreateResource("CopperOre", "raw").setDisplayName("Copper Ore");
+    CreateResource("TinOre", "raw").setDisplayName("Tin Ore");
+    CreateResource("IronOre", "raw").setDisplayName("Iron Ore");
     CreateResource("Hides", "raw");
 
     CreateResource("Planks", "intermediate");
-    CreateResource("CopperIngot", "intermediate");
-    CreateResource("TinIngot", "intermediate");
-    CreateResource("BronzeIngot", "intermediate");
-    CreateResource("IronIngot", "intermediate");
+    CreateResource("CopperIngot", "intermediate").setDisplayName("Copper Ingot");
+    CreateResource("TinIngot", "intermediate").setDisplayName("Tin Ingot");
+    CreateResource("BronzeIngot", "intermediate").setDisplayName("Bronze Ingot");
+    CreateResource("IronIngot", "intermediate").setDisplayName("Iron Ingot");
     CreateResource("Leather", "intermediate");
 
-    CreateResource("CopperWeapons", "tools");
-    CreateResource("LeatherArmour", "tools");
-    CreateResource("CopperArmour", "tools");
-    CreateResource("IronArmour", "tools");
+    CreateResource("CopperWeapons", "tools").setDisplayName("Copper Weapons");
+    CreateResource("LeatherArmour", "tools").setDisplayName("Leather Armour");
+    CreateResource("CopperArmour", "tools").setDisplayName("Copper Armour");
+    CreateResource("IronArmour", "tools").setDisplayName("Iron Armour");
 }
 
 function CreateResource(name, category){
     resources[name] = new Resource(name, category);
+    return resources[name];
 }
