@@ -16,11 +16,6 @@ button
     background-color: #6495ed;
 }
 
-button:focus
-{
-    background-color: #000080;
-}
-
 a
 {
     color: red;
@@ -64,19 +59,23 @@ a
     padding: 1px 0px;
 }
 
-.userCanDo
+.userGatherButton
 {
     display: inline-block;
-    width: 1em;
-    border-radius: 4px;
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0px;
+    padding: 0px;
+}
+
+.userCanDo
+{
     background-color: #6495ed;
 }
 
 .userCantDo
 {
     display: inline-block;
-    width: 1em;
-    border-radius: 4px;
     background-color: gray;
 }
 
@@ -118,12 +117,13 @@ a
 
 .buyBuilding
 {
-    background-color: #6495ed;
-    border-radius:4px;
-    width: 1em;
-    max-width: 1em;
-    text-align: center;
     display: inline-block;
+    background-color: #6495ed;
+    width: 1.5em;
+    min-width: 1.5em;
+    height: 1.5em;
+    padding: 0px;
+    text-align: center;
 }
 
 .building .tooltip

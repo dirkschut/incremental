@@ -12,7 +12,7 @@ class Building{
     }
 
     getViewString(){
-        var returnString = "<li id='" + this.name + "' class='building'><span class='buyBuilding' onclick = \"tryBuildBuilding('" + this.name + "')\"'>+</span>";
+        var returnString = "<li id='" + this.name + "' class='building'><button class='buyBuilding' onclick = \"tryBuildBuilding('" + this.name + "')\"'>+</button>";
         returnString += " <span class='amount'>" + this.amount + "</span> ";
         returnString += this.name;
 

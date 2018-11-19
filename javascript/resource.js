@@ -46,7 +46,7 @@ class Resource{
     }
 
     getViewString(){
-        var userIsDoingClass = "";
+        var userIsDoingClass = "userGatherButton ";
         if(userResource == this.name){
             userIsDoingClass += "userDoing";
         }
@@ -63,7 +63,7 @@ class Resource{
         var viewString = "<li id='" + this.name + "'>";
         viewString += "<span class='amount'>" + this.amount + "</span>"
         viewString += " (<span class='perSecond'>" + this.getPerSecond() + "</span>/s) " + this.getDisplayName();
-        viewString += " <span class='" + userIsDoingClass + "' " + onClickWritten + ">&nbsp;</span>";
+        viewString += " <button class='" + userIsDoingClass + "' " + onClickWritten + ">&nbsp;</button>";
         viewString += "</li>";
         return viewString;
     }
