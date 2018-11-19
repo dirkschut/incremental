@@ -1,7 +1,9 @@
 var resources = [];
 var buildings = [];
+var buildQueue = [];
 var userResource = "Wood";
 
+var buildTicksRemain = 0;
 var frameCounter = 0;
 var framesBetweenKeyFrames = 1000;
 
@@ -21,6 +23,18 @@ $( window ).on("load", function(){
 function tick(){
     for(var i = 0; i < Object.keys(buildings).length; i++){
         Object.values(buildings)[i].produce();
+    }
+
+    if(buildQueue.length > 0){
+        if(buildTicksRemain != 0){
+            buildTicksRemain--;
+        }else{
+            var building = buildQueue.shift();
+            buildings[building].dequeueBuilding();
+            if(buildQueue.length > 0){
+                buildTicksRemain = buildings[buildQueue[0].getName()].buildTime();
+            }
+        }
     }
 
     resources[userResource].increase(1);
@@ -106,6 +120,10 @@ function tryBuildBuilding(buildingName){
         console.log("Unknown buildingName: " + buildingName);
         return;
     }else{
-        buildings[buildingName].tryBuild();
+        if(buildings[buildingName].canBuild()){
+            buildQueue.push(buildingName);
+            buildings[buildingName].enqueueBuilding();
+            buildTicksRemain = buildings[buildingName].getBuildTime();
+        }
     }
 }
