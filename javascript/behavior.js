@@ -102,18 +102,10 @@ function clearManualResource(){
 }
 
 function tryBuildBuilding(buildingName){
-    switch(buildingName){
-        case "Woodcutter":
-            buildings["Woodcutter"].tryBuild();
-            break;
-        case "Stonemason":
-            buildings["Stonemason"].tryBuild();
-            break;
-        case "Farm":
-            buildings["Farm"].tryBuild();
-            break;
-        default:
-            console.log("Unknown buildingName: " + buildingName);
-            break;
+    if(buildings[buildingName] == null){
+        console.log("Unknown buildingName: " + buildingName);
+        return;
+    }else{
+        buildings[buildingName].tryBuild();
     }
 }
