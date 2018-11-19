@@ -123,6 +123,7 @@ function CreateBuildings(){
     CreateBuildingFarm();
     CreateBuildingCopperMine();
     CreateBuildingTinMine();
+    CreateBuildingHousing();
 }
 
 function CreateBuildingWoodcutter(){
@@ -171,6 +172,16 @@ function CreateBuildingTinMine(){
         ["Wood", "Stone"],
         [250,    250],
         ["TinOre"],
+        [1]
+    );
+}
+
+function CreateBuildingHousing(){
+    CreateBuildingWithCostsAndProduction(
+        "Tent",
+        ["Wood", "Hides"],
+        ["100",  100],
+        ["Peasant"],
         [1]
     );
 }
