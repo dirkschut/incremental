@@ -151,9 +151,9 @@ function CreateBuildings(){
 function CreateBuildingWoodcutter(){
     CreateBuildingWithCostsAndProduction(
         "Woodcutter",
-        ["Wood"],
+        ["Logs"],
         [10],
-        ["Wood"],
+        ["Logs"],
         [1]
     );
 }
@@ -161,7 +161,7 @@ function CreateBuildingWoodcutter(){
 function CreateBuildingStonemason(){
     CreateBuildingWithCostsAndProduction(
         "Stonemason",
-        ["Wood", "Stone"],
+        ["Logs", "Stone"],
         [100,    100],
         ["Stone"],
         [1]
@@ -171,7 +171,7 @@ function CreateBuildingStonemason(){
 function CreateBuildingFarm(){
     CreateBuildingWithCostsAndProduction(
         "Farm",
-        ["Wood", "Food"],
+        ["Logs", "Food"],
         [100,    100],
         ["Food"],
         [1]
@@ -181,7 +181,7 @@ function CreateBuildingFarm(){
 function CreateBuildingCopperMine(){
     CreateBuildingWithCostsAndProduction(
         "CopperMine",
-        ["Wood", "Stone"],
+        ["Logs", "Stone"],
         [250,    250],
         ["CopperOre"],
         [1]
@@ -191,7 +191,7 @@ function CreateBuildingCopperMine(){
 function CreateBuildingTinMine(){
     CreateBuildingWithCostsAndProduction(
         "TinMine",
-        ["Wood", "Stone"],
+        ["Logs", "Stone"],
         [250,    250],
         ["TinOre"],
         [1]
@@ -201,7 +201,7 @@ function CreateBuildingTinMine(){
 function CreateBuildingHousing(){
     CreateBuildingWithCostsAndProduction(
         "Tent",
-        ["Wood", "Hides"],
+        ["Logs", "Hides"],
         ["100",  100],
         ["Peasant"],
         [1]

@@ -84,7 +84,7 @@ class Resource{
 };
 
 function CreateResources(){
-    CreateResource("Wood", "raw");
+    CreateResource("Logs", "raw");
     CreateResource("Stone", "raw");
     CreateResource("Food", "raw");
     CreateResource("CopperOre", "raw").setDisplayName("Copper Ore");

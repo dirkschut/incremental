@@ -1,7 +1,7 @@
 var resources = [];
 var buildings = [];
 var buildQueue;
-var userResource = "Wood";
+var userResource = "Logs";
 
 var frameCounter = 0;
 var framesBetweenKeyFrames = 1000;
@@ -10,7 +10,7 @@ $( window ).on("load", function(){
     console.log("Welcome");
 
     CreateResources();
-    setUserResource("Wood");
+    setUserResource("Logs");
 
     CreateBuildings();
 
@@ -96,7 +96,7 @@ function setUserResource(resource){
     });
 
     if(!foundIt){
-        userResource = "Wood";
+        userResource = "Logs";
         console.log("UNKNOWN USER RESOURCE: " + resource);
     }
 
