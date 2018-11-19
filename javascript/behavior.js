@@ -90,7 +90,7 @@ function setUserResource(resource){
 
     Object.values(resources).forEach(tempResource => {
         if(tempResource.getName() == resource){
-            $("#" + resource).children(".UserCanDo").addClass("userDoing");
+            $("#" + resource).children(".userCanDo").addClass("userDoing");
             foundIt = true;
         }
     });
@@ -104,7 +104,7 @@ function setUserResource(resource){
 
 function clearManualResource(){
     Object.values(resources).forEach(resource => {
-        $("#" + resource.getName()).children(".UserCanDo").removeClass("userDoing");
+        $("#" + resource.getName()).children(".userCanDo").removeClass("userDoing");
     });
 }
 
