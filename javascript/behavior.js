@@ -3,6 +3,9 @@ var buildings = [];
 var buildQueue;
 var userResource = "Logs";
 
+var ticksSinceLastSave = 0;
+var ticksBetweenSaves = 60;
+
 var frameCounter = 0;
 var framesBetweenKeyFrames = 1000;
 
@@ -18,6 +21,9 @@ $( window ).on("load", function(){
 
     window.setInterval(tick, 1000);
     window.setInterval(frame, 10);
+
+    LoadGame();
+
     keyFrame();
 });
 
@@ -29,6 +35,13 @@ function tick(){
     buildQueue.tick();
 
     resources[userResource].increase(1);
+
+    if(ticksSinceLastSave >= ticksBetweenSaves){
+        SaveGame();
+        ticksSinceLastSave = 0;
+    }else{
+        ticksSinceLastSave++;
+    }
 }
 
 function frame(){
@@ -80,6 +93,33 @@ function keyFrame(){
         buildingsText += element.getViewString();
     });
     $("#buildingListList").html(buildingsText);
+}
+
+function LoadGame(){
+    if(!localStorage.getItem("saved")){
+        return false;
+    }
+
+    Object.values(resources).forEach(resource => {
+        resource.Load();
+    });
+
+    Object.values(buildings).forEach(building => {
+        building.Load();
+    });
+}
+
+function SaveGame(){
+    console.log("Saving");
+    localStorage.setItem("saved", true);
+
+    Object.values(resources).forEach(resource => {
+        resource.Save();
+    });
+
+    Object.values(buildings).forEach(building => {
+        building.Save();
+    });
 }
 
 function setUserResource(resource){

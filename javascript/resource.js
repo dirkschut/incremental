@@ -81,6 +81,14 @@ class Resource{
 
         return total;
     }
+
+    Load(){
+        this.amount = parseInt(localStorage.getItem("resource_" + this.name + "_amount"));
+    }
+
+    Save(){
+        localStorage.setItem("resource_" + this.name + "_amount", this.amount);
+    }
 };
 
 function CreateResources(){

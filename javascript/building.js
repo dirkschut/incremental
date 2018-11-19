@@ -42,6 +42,14 @@ class Building{
         }
     }
 
+    Load(){
+        this.amount = parseInt(localStorage.getItem("building_" + this.name + "_amount"));
+    }
+
+    Save(){
+        localStorage.setItem("building_" + this.name + "_amount", this.amount);
+    }
+
     getAmount(){
         return this.amount;
     }
