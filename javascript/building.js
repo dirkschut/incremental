@@ -6,7 +6,7 @@ class Building{
         this.costsAmount = [];
         this.producesResource = [];
         this.producesAmount = [];
-        this.costExponent = 1.1;
+        this.costExponent = 1.8;
         this.buildTime = 2;
         this.amountInQueue = 0;
     }
