@@ -103,6 +103,10 @@ function CreateResources(){
     CreateResource("LeatherArmour", "tools").setDisplayName("Leather Armour");
     CreateResource("CopperArmour", "tools").setDisplayName("Copper Armour");
     CreateResource("IronArmour", "tools").setDisplayName("Iron Armour");
+
+    CreateResource("Peasant", "pop");
+    CreateResource("Worker", "pop");
+    CreateResource("Soldier", "pop");
 }
 
 function CreateResource(name, category){

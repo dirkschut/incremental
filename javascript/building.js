@@ -7,6 +7,8 @@ class Building{
         this.producesResource = [];
         this.producesAmount = [];
         this.costExponent = 1.1;
+        this.buildTime = 2;
+        this.amountInQueue = 0;
     }
 
     getViewString(){
@@ -50,7 +52,7 @@ class Building{
     getExponentCosts(){
         var exponentArray = [];
         for(var i = 0; i < this.costsAmount.length; i++){
-            exponentArray.push(Math.ceil(this.costsAmount[i] * Math.pow(this.costExponent, this.amount)));
+            exponentArray.push(Math.ceil(this.costsAmount[i] * Math.pow(this.costExponent, this.amount + this.amountInQueue)));
         }
         return exponentArray;
     }
@@ -59,7 +61,15 @@ class Building{
         this.costExponent = costExponent;
     }
 
-    tryBuild(){
+    getBuildTime(){
+        return this.buildTime;
+    }
+
+    setBuildTime(buildTime){
+        this.buildTime = buildTime;
+    }
+
+    canBuild(){
         var exponentCosts = this.getExponentCosts();
 
         for(var i = 0; i < this.costsResource.length; i++){
@@ -69,10 +79,22 @@ class Building{
             }
         }
 
-        for(var i = 0; i < this.costsResource.length; i++){
-            resources[this.costsResource[i]].subtract(exponentCosts[i]); 
-        }
+        return true;
+    }
 
+    enqueueBuilding(){
+        var exponentCosts = this.getExponentCosts();
+
+        if(this.canBuild()){
+            for(var i = 0; i < this.costsResource.length; i++){
+                resources[this.costsResource[i]].subtract(exponentCosts[i]); 
+            }
+            this.amountInQueue++;
+        }
+    }
+
+    dequeueBuilding(){
+        this.amountInQueue--;
         this.amount++;
     }
 
@@ -123,6 +145,7 @@ function CreateBuildings(){
     CreateBuildingFarm();
     CreateBuildingCopperMine();
     CreateBuildingTinMine();
+    CreateBuildingHousing();
 }
 
 function CreateBuildingWoodcutter(){
@@ -171,6 +194,16 @@ function CreateBuildingTinMine(){
         ["Wood", "Stone"],
         [250,    250],
         ["TinOre"],
+        [1]
+    );
+}
+
+function CreateBuildingHousing(){
+    CreateBuildingWithCostsAndProduction(
+        "Tent",
+        ["Wood", "Hides"],
+        ["100",  100],
+        ["Peasant"],
         [1]
     );
 }
