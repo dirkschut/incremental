@@ -99,6 +99,17 @@ class Building{
     }
 
     produce(){
+        var canDo = true;
+        for(var i = 0; i < this.producesResource.length; i++){
+            if(resources[this.producesResource[i]].amount + this.producesAmount[i] < 0){
+                canDo = false;
+            }
+        }
+
+        if(!canDo){
+            return false;
+        }
+
         for(var i = 0; i < this.producesResource.length; i++){
             resources[this.producesResource[i]].increase(this.producesAmount[i] * this.amount);
         }
@@ -155,6 +166,14 @@ function CreateBuildingWoodcutter(){
         [10],
         ["Logs"],
         [1]
+    );
+
+    CreateBuildingWithCostsAndProduction(
+        "Sawmill",
+        ["Logs", "Stone"],
+        [1000,   500],
+        ["Planks", "Logs"],
+        [1,        -1]
     );
 }
 
