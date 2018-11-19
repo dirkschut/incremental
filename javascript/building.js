@@ -222,7 +222,7 @@ function CreateBuildingHousing(){
         "Tent",
         ["Logs", "Hides"],
         ["100",  100],
-        ["Peasant"],
-        [1]
+        ["Peasant", "Food"],
+        [1,         -1]
     );
 }
