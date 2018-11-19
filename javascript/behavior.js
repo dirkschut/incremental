@@ -46,6 +46,8 @@ function frame(){
         building.updateView();
     });
 
+    this.buildQueue.frame();
+
     frameCounter++;
 }
 

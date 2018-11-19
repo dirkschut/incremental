@@ -32,4 +32,14 @@ class BuildQueue{
             }
         }
     }
+
+    frame(){
+        var viewString = "";
+
+        this.queue.forEach(element => {
+            viewString += "<li>" + element + "</li>";
+        });
+
+        $("#buildingQueueList").html(viewString);
+    }
 }
