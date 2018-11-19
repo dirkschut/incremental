@@ -48,6 +48,7 @@ function keyFrame(){
     var baseString = "<li><h3>Basic</h3></li>";
     var intermediateString = "<li><h3>Intermediate</h3></li>";
     var toolsString = "<li><h3>Tools</h3></li>";
+    var popString = "<li><h3>Population</h3></li>";
 
     Object.values(resources).forEach(element => {
         switch(element.getCategory()){
@@ -57,12 +58,15 @@ function keyFrame(){
             case "tools":
                 toolsString += element.getViewString();
                 break;
+            case "pop":
+                popString += element.getViewString();
+                break;
             default:
                 baseString += element.getViewString();
                 break;
         }
     });
-    $("#resourcesList").html(baseString + intermediateString + toolsString);
+    $("#resourcesList").html(baseString + intermediateString + toolsString + popString);
 
     var buildingsText = "";
     Object.values(buildings).forEach(element => {
