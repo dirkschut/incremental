@@ -99,9 +99,11 @@ function CreateResources(){
     CreateResource("IronIngot", "intermediate").setDisplayName("Iron Ingot");
     CreateResource("Leather", "intermediate");
 
-    CreateResource("CopperWeapons", "tools").setDisplayName("Copper Weapons");
+    CreateResource("BronzeWeapons", "tools").setDisplayName("Bronze Weapons");
+    CreateResource("IronWeapons", "tools").setDisplayName("Iron Weapons");
+    
     CreateResource("LeatherArmour", "tools").setDisplayName("Leather Armour");
-    CreateResource("CopperArmour", "tools").setDisplayName("Copper Armour");
+    CreateResource("BronzeArmour", "tools").setDisplayName("Bronze Armour");
     CreateResource("IronArmour", "tools").setDisplayName("Iron Armour");
 
     CreateResource("Peasant", "pop");
