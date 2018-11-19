@@ -15,15 +15,21 @@ class Building{
         var returnString = "<li id='" + this.name + "' class='building'><span class='buyBuilding' onclick = \"tryBuildBuilding('" + this.name + "')\"'>+</span>";
         returnString += " <span class='amount'>" + this.amount + "</span> ";
         returnString += this.name;
-        returnString += "<div class='tooltip'>"
 
+        returnString += "<div class='tooltip'>"
+        returnString += "<b>Cost:</b><ul>";
         var exponentCosts = this.getExponentCosts();
         for(var i = 0; i < exponentCosts.length; i++){
             var cost = exponentCosts[i]
-            returnString += "<span class='" + this.costsResource[i] + "'>" + cost + "</span> " + this.costsResource[i] + "<br/>";
+            returnString += "<li><span class='" + this.costsResource[i] + "'>" + cost + "</span> " + this.costsResource[i] + "</li>";
         }
 
-        returnString += "</div>";
+        returnString += "</ul>  <hr /><b>Produces:</b><ul>"
+        for(var i = 0; i < this.producesResource.length; i++){
+            returnString += "<li>" + this.producesAmount[i] + " " +  resources[this.producesResource[i]].getDisplayName() + "</li>";
+        }
+        returnString += "</ul></div>";
+
         returnString += "</li>";
         return returnString;
     }
