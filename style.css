@@ -101,7 +101,8 @@ a
 
 #buildingQueue
 {
-    border-bottom: 2px solid;
+    border-top: 2px solid;
+    padding-top: 5px;
 }
 
 #buildings ul
