@@ -16,11 +16,6 @@ button
     background-color: #6495ed;
 }
 
-button:focus
-{
-    background-color: #000080;
-}
-
 a
 {
     color: red;
@@ -64,25 +59,76 @@ a
     padding: 1px 0px;
 }
 
+.resourceSquare
+{
+    border: 2px solid;
+    margin: 3px;
+    float: left;
+    width: 50px;
+    height: 50px;
+    position: relative;
+}
+
+.resourceSquare .tooltip
+{
+    visibility: hidden;
+    z-index: 1;
+    position: absolute;
+    border: 2px solid;
+    background: black;
+    left: 50px;
+    width: 200px;
+}
+
+.resourceSquare:hover .tooltip
+{
+    visibility: visible;
+    position: relative;
+}
+
+.resourceSquare .amount
+{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.resourceSquare .perSecond
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.resourceSquare .positive
+{
+    color: greenyellow;
+}
+
+.resourceSquare .negative
+{
+    color: red;
+}
+
+.resourceSquare .resourcePicture
+{
+    width: 100%;
+    height: 100%;
+}
+
 .userCanDo
 {
-    display: inline-block;
-    width: 1em;
-    border-radius: 4px;
-    background-color: #6495ed;
+    border-color: #6495ed;
 }
 
 .userCantDo
 {
-    display: inline-block;
-    width: 1em;
-    border-radius: 4px;
-    background-color: gray;
+    border-color: gray;
 }
 
 .userDoing
 {
-    background-color: #000080;
+    border-color: greenyellow;
 }
 
 #buildings
@@ -101,7 +147,8 @@ a
 
 #buildingQueue
 {
-    border-bottom: 2px solid;
+    border-top: 2px solid;
+    padding-top: 5px;
 }
 
 #buildings ul
@@ -117,12 +164,13 @@ a
 
 .buyBuilding
 {
-    background-color: #6495ed;
-    border-radius:4px;
-    width: 1em;
-    max-width: 1em;
-    text-align: center;
     display: inline-block;
+    background-color: #6495ed;
+    width: 1.5em;
+    min-width: 1.5em;
+    height: 1.5em;
+    padding: 0px;
+    text-align: center;
 }
 
 .building .tooltip
@@ -136,4 +184,10 @@ a
 {
     visibility: visible;
     position: relative;
+}
+
+#saveButton
+{
+    float: left;
+    margin: 15px;
 }

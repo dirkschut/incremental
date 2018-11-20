@@ -6,24 +6,30 @@ class Building{
         this.costsAmount = [];
         this.producesResource = [];
         this.producesAmount = [];
-        this.costExponent = 1.1;
+        this.costExponent = 1.8;
         this.buildTime = 2;
         this.amountInQueue = 0;
     }
 
     getViewString(){
-        var returnString = "<li id='" + this.name + "' class='building'><span class='buyBuilding' onclick = \"tryBuildBuilding('" + this.name + "')\"'>+</span>";
+        var returnString = "<li id='" + this.name + "' class='building'><button class='buyBuilding' onclick = \"tryBuildBuilding('" + this.name + "')\"'>+</button>";
         returnString += " <span class='amount'>" + this.amount + "</span> ";
         returnString += this.name;
-        returnString += "<div class='tooltip'>"
 
+        returnString += "<div class='tooltip'>"
+        returnString += "<b>Cost:</b><ul>";
         var exponentCosts = this.getExponentCosts();
         for(var i = 0; i < exponentCosts.length; i++){
             var cost = exponentCosts[i]
-            returnString += "<span class='" + this.costsResource[i] + "'>" + cost + "</span> " + this.costsResource[i] + "<br/>";
+            returnString += "<li><span class='" + this.costsResource[i] + "'>" + cost + "</span> " + this.costsResource[i] + "</li>";
         }
 
-        returnString += "</div>";
+        returnString += "</ul>  <hr /><b>Produces:</b><ul>"
+        for(var i = 0; i < this.producesResource.length; i++){
+            returnString += "<li>" + this.producesAmount[i] + " " +  resources[this.producesResource[i]].getDisplayName() + "</li>";
+        }
+        returnString += "</ul></div>";
+
         returnString += "</li>";
         return returnString;
     }
@@ -34,6 +40,14 @@ class Building{
         for(var i = 0; i < this.costsAmount.length; i++){
             $("#" + this.name).children(".tooltip").children("." + this.costsResource[i]).text(costExponents[i]);
         }
+    }
+
+    Load(){
+        this.amount = parseInt(localStorage.getItem("building_" + this.name + "_amount"));
+    }
+
+    Save(){
+        localStorage.setItem("building_" + this.name + "_amount", this.amount);
     }
 
     getAmount(){
@@ -99,6 +113,17 @@ class Building{
     }
 
     produce(){
+        var canDo = true;
+        for(var i = 0; i < this.producesResource.length; i++){
+            if(resources[this.producesResource[i]].amount + this.producesAmount[i] < 0){
+                canDo = false;
+            }
+        }
+
+        if(!canDo){
+            return false;
+        }
+
         for(var i = 0; i < this.producesResource.length; i++){
             resources[this.producesResource[i]].increase(this.producesAmount[i] * this.amount);
         }
@@ -143,25 +168,35 @@ function CreateBuildings(){
     CreateBuildingWoodcutter();
     CreateBuildingStonemason();
     CreateBuildingFarm();
-    CreateBuildingCopperMine();
-    CreateBuildingTinMine();
+    CreateBuildingMines();
+    CreateBuildingFoundries();
+    CreateBuildingLeather();
+    CreateBuildingSmiths();
     CreateBuildingHousing();
 }
 
 function CreateBuildingWoodcutter(){
     CreateBuildingWithCostsAndProduction(
         "Woodcutter",
-        ["Wood"],
+        ["Logs"],
         [10],
-        ["Wood"],
+        ["Logs"],
         [1]
+    );
+
+    CreateBuildingWithCostsAndProduction(
+        "Sawmill",
+        ["Logs", "Stone"],
+        [1000,   500],
+        ["Planks", "Logs"],
+        [1,        -1]
     );
 }
 
 function CreateBuildingStonemason(){
     CreateBuildingWithCostsAndProduction(
         "Stonemason",
-        ["Wood", "Stone"],
+        ["Logs", "Stone"],
         [100,    100],
         ["Stone"],
         [1]
@@ -171,39 +206,139 @@ function CreateBuildingStonemason(){
 function CreateBuildingFarm(){
     CreateBuildingWithCostsAndProduction(
         "Farm",
-        ["Wood", "Food"],
+        ["Logs", "Food"],
         [100,    100],
         ["Food"],
         [1]
     );
 }
 
-function CreateBuildingCopperMine(){
+function CreateBuildingMines(){
     CreateBuildingWithCostsAndProduction(
         "CopperMine",
-        ["Wood", "Stone"],
+        ["Logs", "Stone"],
         [250,    250],
         ["CopperOre"],
         [1]
     );
-}
 
-function CreateBuildingTinMine(){
     CreateBuildingWithCostsAndProduction(
         "TinMine",
-        ["Wood", "Stone"],
+        ["Logs", "Stone"],
         [250,    250],
         ["TinOre"],
         [1]
+    );
+
+    CreateBuildingWithCostsAndProduction(
+        "IronMine",
+        ["Logs", "Stone", "BronzeIngot"],
+        [2500,   2000,    100],
+        ["IronOre"],
+        [1]
+    );
+}
+
+function CreateBuildingFoundries(){
+    CreateBuildingWithCostsAndProduction(
+        "CopperFoundry",
+        ["Planks", "Stone"],
+        [2500,     5000],
+        ["CopperIngot", "CopperOre"],
+        [1,             -10]
+    );
+    
+    CreateBuildingWithCostsAndProduction(
+        "TinFoundry",
+        ["Planks", "Stone"],
+        [7500,     15000],
+        ["TinIngot", "TinOre"],
+        [1,             -10]
+    );
+    
+    CreateBuildingWithCostsAndProduction(
+        "BronzeFoundry",
+        ["Planks", "Stone"],
+        [10000,    25000],
+        ["BronzeIngot", "CopperIngot", "TinIngot"],
+        [1,             -10,           -10]
+    );
+    
+    CreateBuildingWithCostsAndProduction(
+        "IronFoundry",
+        ["Planks", "Stone", "BronzeIngot"],
+        [25000,    50000,   100],
+        ["IronIngot", "IronOre"],
+        [1,             -10]
+    );
+}
+
+function CreateBuildingLeather(){
+    CreateBuildingWithCostsAndProduction(
+        "HuntingCabin",
+        ["Planks", "Stone"],
+        [100,      250],
+        ["Hides", "Food"],
+        [1,      1]
+    );
+    
+    CreateBuildingWithCostsAndProduction(
+        "Tannery",
+        ["Planks", "Stone"],
+        [1000,     2500],
+        ["Leather", "Hides"],
+        [1,         -10]
+    );
+}
+
+function CreateBuildingSmiths(){
+    CreateBuildingWithCostsAndProduction(
+        "BronzeWeaponSmith",
+        ["Planks", "Stone", "BronzeIngot"],
+        [25000,    50000,   100],
+        ["BronzeWeapons", "BronzeIngot"],
+        [1,               -10]
+    );
+    
+    CreateBuildingWithCostsAndProduction(
+        "IronWeaponSmith",
+        ["Planks", "Stone", "IronIngot"],
+        [100000,   200000,  100],
+        ["IronWeapons", "IronIngot"],
+        [1,             -10]
+    );
+
+    CreateBuildingWithCostsAndProduction(
+        "LeatherArmourer",
+        ["Planks", "Stone", "Leather"],
+        [25000,    50000,   1000],
+        ["LeatherArmour", "Leather"],
+        [1,               -100]
+    );
+
+    CreateBuildingWithCostsAndProduction(
+        "BronzeArmourer",
+        ["Planks", "Stone", "BronzeIngot"],
+        [100000,   200000,  1000],
+        ["BronzeArmour", "BronzeIngot"],
+        [1,              -100]
+    );
+
+    CreateBuildingWithCostsAndProduction(
+        "IronArmourer",
+        ["Planks", "Stone", "IronIngot"],
+        [500000,   1000000, 1000],
+        ["IronArmour", "IronIngot"],
+        [1,            -100]
     );
 }
 
 function CreateBuildingHousing(){
     CreateBuildingWithCostsAndProduction(
         "Tent",
-        ["Wood", "Hides"],
+        ["Logs", "Hides"],
         ["100",  100],
-        ["Peasant"],
-        [1]
+        ["Peasant", "Food"],
+        [1,         -1]
     );
 }

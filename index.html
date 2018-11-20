@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Incremental v 0.0.4</title>
+        <title>Incremental v 0.0.5</title>
         <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -13,12 +13,15 @@
     </head>
     <body>
         <div id="container">
+
+            <button id="saveButton" onclick="SaveGame()">Save</button>
+            
             <h1>Incremental</h1>
             <p>This will be the home of my incremental game.</p>
             <p>However, as this is my learning JavaScript project, it is and probably will always be very limited.</p>
-            <p><a href="changelog/Changelog.html">Changelog</a> <a href="changelog/Roadmap.html">Roadmap</a></p>
+            <p><a href="changelog/Changelog.html">Changelog</a> <a href="changelog/Roadmap.html">Roadmap</a> <a href="https://github.com/mrDLSable/incremental">Source Code</a></p>
             <p><a href="https://discord.gg/3yN6vPH">Talk about it on Discord.</a></p>
-            <p>Version 0.0.4</p>
+            <p>Version 0.0.5</p>
 
             <div id="resources">
                 You currently have:
@@ -26,14 +29,14 @@
             </div>
 
             <div id="buildings">
+                <div id="buildingList">
+                    <ul id="buildingListList"></ul>
+                </div>
                 <div id="buildingQueue">
                     Building Queue
                     <ol id="buildingQueueList">
                         <li>Empty</li>
                     </ol>
-                </div>
-                <div id="buildingList">
-                    <ul id="buildingListList"></ul>
                 </div>
             </div>
         </div>

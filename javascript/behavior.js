@@ -1,7 +1,10 @@
 var resources = [];
 var buildings = [];
 var buildQueue;
-var userResource = "Wood";
+var userResource = "Logs";
+
+var ticksSinceLastSave = 0;
+var ticksBetweenSaves = 60;
 
 var frameCounter = 0;
 var framesBetweenKeyFrames = 1000;
@@ -10,7 +13,7 @@ $( window ).on("load", function(){
     console.log("Welcome");
 
     CreateResources();
-    setUserResource("Wood");
+    setUserResource("Logs");
 
     CreateBuildings();
 
@@ -18,6 +21,9 @@ $( window ).on("load", function(){
 
     window.setInterval(tick, 1000);
     window.setInterval(frame, 10);
+
+    LoadGame();
+
     keyFrame();
 });
 
@@ -29,6 +35,13 @@ function tick(){
     buildQueue.tick();
 
     resources[userResource].increase(1);
+
+    if(ticksSinceLastSave >= ticksBetweenSaves){
+        SaveGame();
+        ticksSinceLastSave = 0;
+    }else{
+        ticksSinceLastSave++;
+    }
 }
 
 function frame(){
@@ -82,6 +95,33 @@ function keyFrame(){
     $("#buildingListList").html(buildingsText);
 }
 
+function LoadGame(){
+    if(!localStorage.getItem("saved")){
+        return false;
+    }
+
+    Object.values(resources).forEach(resource => {
+        resource.Load();
+    });
+
+    Object.values(buildings).forEach(building => {
+        building.Load();
+    });
+}
+
+function SaveGame(){
+    console.log("Saving");
+    localStorage.setItem("saved", true);
+
+    Object.values(resources).forEach(resource => {
+        resource.Save();
+    });
+
+    Object.values(buildings).forEach(building => {
+        building.Save();
+    });
+}
+
 function setUserResource(resource){
     clearManualResource();
     userResource = resource;
@@ -90,13 +130,13 @@ function setUserResource(resource){
 
     Object.values(resources).forEach(tempResource => {
         if(tempResource.getName() == resource){
-            $("#" + resource).children(".UserCanDo").addClass("userDoing");
+            $("#" + resource).children(".userCanDo").addClass("userDoing");
             foundIt = true;
         }
     });
 
     if(!foundIt){
-        userResource = "Wood";
+        userResource = "Logs";
         console.log("UNKNOWN USER RESOURCE: " + resource);
     }
 
@@ -104,7 +144,7 @@ function setUserResource(resource){
 
 function clearManualResource(){
     Object.values(resources).forEach(resource => {
-        $("#" + resource.getName()).children(".UserCanDo").removeClass("userDoing");
+        $("#" + resource.getName()).children(".userCanDo").removeClass("userDoing");
     });
 }
 

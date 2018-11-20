@@ -4,10 +4,17 @@ class Resource{
         this.displayName = "";
         this.category = category;
         this.amount = 0;
+        this.image = "";
     }
 
     setDisplayName(displayName){
         this.displayName = displayName;
+        return this;
+    }
+
+    setImage(image){
+        this.image = image;
+        return this;
     }
 
     getDisplayName(){
@@ -42,13 +49,20 @@ class Resource{
 
     updateView(){
         $("#" + this.name).children(".amount").text(this.amount);
-        $("#" + this.name).children(".perSecond").text(this.getPerSecond());
+        $("#" + this.name).children(".perSecond").text(this.getPerSecond() + "/s");
     }
 
     getViewString(){
-        var userIsDoingClass = "";
+        var userIsDoingClass = "userGatherButton ";
+        var balance = "neutral";
         if(userResource == this.name){
             userIsDoingClass += "userDoing";
+        }
+
+        if(this.getPerSecond() > 0){
+            balance = "positive";
+        }else if(this.getPerSecond() < 0){
+            balance = "negative";
         }
 
         var onClickWritten = "";
@@ -60,10 +74,12 @@ class Resource{
             userIsDoingClass += " userCantDo";
         }
 
-        var viewString = "<li id='" + this.name + "'>";
-        viewString += "<span class='amount'>" + this.amount + "</span>"
-        viewString += " (<span class='perSecond'>" + this.getPerSecond() + "</span>/s) " + this.getDisplayName();
-        viewString += " <span class='" + userIsDoingClass + "' " + onClickWritten + ">&nbsp;</span>";
+        var viewString = "<li id='" + this.name + "' class='resourceSquare " + userIsDoingClass + "' " + onClickWritten + ">";
+        viewString += "<img class='resourcePicture' src='" + this.image + "'/>";
+        viewString += " <span class='perSecond " + balance + "'>" + this.getPerSecond() + "/s</span> ";
+        viewString += "<span class='amount'>" + this.amount + "</span>";
+        viewString += "<div class='tooltip'>" + this.name + "<br />There will be more info here later.</div>";
+        //viewString += " <button class='" + userIsDoingClass + "' " + onClickWritten + ">&nbsp;</button>";
         viewString += "</li>";
         return viewString;
     }
@@ -81,27 +97,37 @@ class Resource{
 
         return total;
     }
+
+    Load(){
+        this.amount = parseInt(localStorage.getItem("resource_" + this.name + "_amount"));
+    }
+
+    Save(){
+        localStorage.setItem("resource_" + this.name + "_amount", this.amount);
+    }
 };
 
 function CreateResources(){
-    CreateResource("Wood", "raw");
-    CreateResource("Stone", "raw");
-    CreateResource("Food", "raw");
-    CreateResource("CopperOre", "raw").setDisplayName("Copper Ore");
-    CreateResource("TinOre", "raw").setDisplayName("Tin Ore");
-    CreateResource("IronOre", "raw").setDisplayName("Iron Ore");
-    CreateResource("Hides", "raw");
+    CreateResource("Logs",  "raw").setImage(                                 "img/logs.png");
+    CreateResource("Stone", "raw").setImage(                                 "img/stone.png");
+    CreateResource("Food",  "raw").setImage(                                 "img/food.png");
+    CreateResource("CopperOre", "raw").setDisplayName("Copper Ore").setImage("img/copperOre.png");
+    CreateResource("TinOre", "raw").setDisplayName("Tin Ore").setImage(      "img/tinOre.png");
+    CreateResource("IronOre", "raw").setDisplayName("Iron Ore").setImage(    "img/ironOre.png");
+    CreateResource("Hides", "raw").setImage(                                 "img/hides.png");
 
-    CreateResource("Planks", "intermediate");
+    CreateResource("Planks", "intermediate").setImage(                       "img/planks.png");
     CreateResource("CopperIngot", "intermediate").setDisplayName("Copper Ingot");
     CreateResource("TinIngot", "intermediate").setDisplayName("Tin Ingot");
     CreateResource("BronzeIngot", "intermediate").setDisplayName("Bronze Ingot");
     CreateResource("IronIngot", "intermediate").setDisplayName("Iron Ingot");
     CreateResource("Leather", "intermediate");
 
-    CreateResource("CopperWeapons", "tools").setDisplayName("Copper Weapons");
+    CreateResource("BronzeWeapons", "tools").setDisplayName("Bronze Weapons");
+    CreateResource("IronWeapons", "tools").setDisplayName("Iron Weapons");
+    
     CreateResource("LeatherArmour", "tools").setDisplayName("Leather Armour");
-    CreateResource("CopperArmour", "tools").setDisplayName("Copper Armour");
+    CreateResource("BronzeArmour", "tools").setDisplayName("Bronze Armour");
     CreateResource("IronArmour", "tools").setDisplayName("Iron Armour");
 
     CreateResource("Peasant", "pop");
