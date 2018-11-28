@@ -173,6 +173,7 @@ function CreateBuildings(){
     CreateBuildingLeather();
     CreateBuildingSmiths();
     CreateBuildingHousing();
+    CreateBuildingConcrete();
 }
 
 function CreateBuildingWoodcutter(){
@@ -330,6 +331,24 @@ function CreateBuildingSmiths(){
         [500000,   1000000, 1000],
         ["IronArmour", "IronIngot"],
         [1,            -100]
+    );
+}
+
+function CreateBuildingConcrete(){
+    CreateBuildingWithCostsAndProduction(
+        "SandGatherer",
+        ["Planks", "Stone"],
+        [1000000, 1500000],
+        ["Sand"],
+        [1]
+    );
+    
+    CreateBuildingWithCostsAndProduction(
+        "ConcreteFactory",
+        ["Planks", "Stone"],
+        [2000000, 3000000],
+        ["Sand", "Concrete"],
+        [-10,    1]
     );
 }
 

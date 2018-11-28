@@ -115,6 +115,7 @@ function CreateResources(){
     CreateResource("TinOre", "raw").setDisplayName("Tin Ore").setImage(      "img/tinOre.png");
     CreateResource("IronOre", "raw").setDisplayName("Iron Ore").setImage(    "img/ironOre.png");
     CreateResource("Hides", "raw").setImage(                                 "img/hides.png");
+    CreateResource("Sand", "raw");
 
     CreateResource("Planks", "intermediate").setImage(                       "img/planks.png");
     CreateResource("CopperIngot", "intermediate").setDisplayName("Copper Ingot");
@@ -122,6 +123,7 @@ function CreateResources(){
     CreateResource("BronzeIngot", "intermediate").setDisplayName("Bronze Ingot");
     CreateResource("IronIngot", "intermediate").setDisplayName("Iron Ingot");
     CreateResource("Leather", "intermediate");
+    CreateResource("Concrete", "intermediate");
 
     CreateResource("BronzeWeapons", "tools").setDisplayName("Bronze Weapons");
     CreateResource("IronWeapons", "tools").setDisplayName("Iron Weapons");
