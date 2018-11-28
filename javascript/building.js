@@ -175,8 +175,8 @@ function CreateBuildings(){
     CreateBuildingFoundries();
     CreateBuildingLeather();
     CreateBuildingSmiths();
-    CreateBuildingHousing();
     CreateBuildingConcrete();
+    CreateBuildingHousing();
 }
 
 function CreateBuildingWoodcutter(){
@@ -359,7 +359,39 @@ function CreateBuildingHousing(){
     CreateBuildingWithCostsAndProduction(
         "Tent",
         ["Logs", "Hides"],
-        ["100",  100],
+        [100,  100],
+        ["Peasant", "Food"],
+        [1,         -1]
+    );
+    
+    CreateBuildingWithCostsAndProduction(
+        "Hut",
+        ["Logs", "Stone"],
+        [1000,   100],
+        ["Peasant", "Food"],
+        [1,         -1]
+    );
+    
+    CreateBuildingWithCostsAndProduction(
+        "WoodenHouse",
+        ["Logs", "Planks"],
+        [2000,   1000],
+        ["Peasant", "Food"],
+        [1,         -1]
+    );
+    
+    CreateBuildingWithCostsAndProduction(
+        "StoneHouse",
+        ["Stone", "Planks"],
+        [5000,    2000],
+        ["Peasant", "Food"],
+        [1,         -1]
+    );
+    
+    CreateBuildingWithCostsAndProduction(
+        "ConcreteHouse",
+        ["Concrete", "Planks"],
+        [10000,    15000],
         ["Peasant", "Food"],
         [1,         -1]
     );
