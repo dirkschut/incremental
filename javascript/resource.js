@@ -100,6 +100,9 @@ class Resource{
 
     Load(){
         this.amount = parseInt(localStorage.getItem("resource_" + this.name + "_amount"));
+        if(isNaN(this.amount)){
+            this.amount = 0;
+        }
     }
 
     Save(){

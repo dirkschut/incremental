@@ -44,6 +44,9 @@ class Building{
 
     Load(){
         this.amount = parseInt(localStorage.getItem("building_" + this.name + "_amount"));
+        if(isNaN(this.amount)){
+            this.amount = 0;
+        }
     }
 
     Save(){
