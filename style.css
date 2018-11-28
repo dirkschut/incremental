@@ -21,6 +21,14 @@ a
     color: red;
 }
 
+h1
+{
+    margin: auto;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
 #container
 {
     width: 700px;

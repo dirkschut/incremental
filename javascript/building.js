@@ -44,6 +44,9 @@ class Building{
 
     Load(){
         this.amount = parseInt(localStorage.getItem("building_" + this.name + "_amount"));
+        if(isNaN(this.amount)){
+            this.amount = 0;
+        }
     }
 
     Save(){
@@ -172,6 +175,7 @@ function CreateBuildings(){
     CreateBuildingFoundries();
     CreateBuildingLeather();
     CreateBuildingSmiths();
+    CreateBuildingConcrete();
     CreateBuildingHousing();
 }
 
@@ -333,11 +337,61 @@ function CreateBuildingSmiths(){
     );
 }
 
+function CreateBuildingConcrete(){
+    CreateBuildingWithCostsAndProduction(
+        "SandGatherer",
+        ["Planks", "Stone"],
+        [1000000, 1500000],
+        ["Sand"],
+        [1]
+    );
+    
+    CreateBuildingWithCostsAndProduction(
+        "ConcreteFactory",
+        ["Planks", "Stone"],
+        [2000000, 3000000],
+        ["Sand", "Concrete"],
+        [-10,    1]
+    );
+}
+
 function CreateBuildingHousing(){
     CreateBuildingWithCostsAndProduction(
         "Tent",
         ["Logs", "Hides"],
-        ["100",  100],
+        [100,  100],
+        ["Peasant", "Food"],
+        [1,         -1]
+    );
+    
+    CreateBuildingWithCostsAndProduction(
+        "Hut",
+        ["Logs", "Stone"],
+        [1000,   100],
+        ["Peasant", "Food"],
+        [1,         -1]
+    );
+    
+    CreateBuildingWithCostsAndProduction(
+        "WoodenHouse",
+        ["Logs", "Planks"],
+        [2000,   1000],
+        ["Peasant", "Food"],
+        [1,         -1]
+    );
+    
+    CreateBuildingWithCostsAndProduction(
+        "StoneHouse",
+        ["Stone", "Planks"],
+        [5000,    2000],
+        ["Peasant", "Food"],
+        [1,         -1]
+    );
+    
+    CreateBuildingWithCostsAndProduction(
+        "ConcreteHouse",
+        ["Concrete", "Planks"],
+        [10000,    15000],
         ["Peasant", "Food"],
         [1,         -1]
     );
